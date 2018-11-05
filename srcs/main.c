@@ -6,13 +6,12 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/04 20:27:45 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/05 10:18:41 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <fdf.h>
-#include <X11/X.h>
 
 int		main()
 {
@@ -28,7 +27,6 @@ int		main()
 	a.x = 0; a.y = 400;
 	b.x = 600; b.y = 0;
 	line(sys, a, b, mkcolor(0, 255, 0));
-	mlx_hook(sys.win, KeyPress, KeyPressMask, keyhook, (void *)0);
 	mlx_loop(sys.mlx);
 	return (0);
 }
