@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   ft_thrower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/04 19:33:57 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/05 11:01:20 by jfarinha         ###   ########.fr       */
+/*   Created: 2018/11/05 13:29:29 by jfarinha          #+#    #+#             */
+/*   Updated: 2018/11/05 14:25:50 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <fdf.h>
 #include <stdlib.h>
+#include "libft.h"
 
-int		keyhook(int keycode, void *p)
+void	ft_thrower(int bool, char *msg)
 {
-	(void)p;
-	if (keycode == XK_ESC)
+	if (bool)
+	{
+		ft_putendl(msg);
 		exit(0);
-	return (0);
-}
-
-int		mousehook(int keycode, int x, int y, void *p)
-{
-	((t_point *)p)->x = x;
-	((t_point *)p)->y = y;
-	return (keycode);
+	}
 }

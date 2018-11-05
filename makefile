@@ -6,18 +6,18 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2018/11/05 10:43:30 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/11/05 16:48:58 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=fdf
-FILES:=main	draw	utils	hook
+FILES:=main	draw	utils	hook	load
 BINS:=$(FILES:=.o)
 BINS:=$(addprefix srcs/, $(BINS))
-INCD:=-I ./includes -I /usr/local/include/
+INCD:=-I ./includes -I /usr/local/include/ -I ./libft
 LIBD:=-L /usr/local/lib/ -L ./libft
 LLIBS:=-lmlx -lXext -lX11 -lft -lm
-MLIBS:=-lmlx -framework OpenGl -framework AppKit
+MLIBS:=-lmlx -lft -framework OpenGl -framework AppKit
 FLAG:=-Wall -Wextra -Werror
 LIBFT:= ./libft/libft.a
 
