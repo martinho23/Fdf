@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 11:28:51 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/05 17:41:00 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/06 08:57:22 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,14 @@ int				ft_putnwstr_fd(const wchar_t *str, size_t n, int fd);
 /*
 ** Misc functions
 */
-char			*ft_itoa(int nbr);
-char			*get_next_line(int fd, char **line);
-int				ft_atoi(const char *str);
 intmax_t		ft_atoim(const char *str);
+int				ft_countlines(char *file);
+int				ft_atoi(const char *str);
+int				get_next_line(int fd, char **line);
 int				ft_imtoalen_base(intmax_t nbr, size_t b);
 int				ft_uimtoalen_base(uintmax_t nbr, size_t b);
 int				ft_uimtoa_base(uintmax_t nbr, size_t b, char *ar, char *cl);
+char			*ft_itoa(int nbr);
 void			ft_thrower(int bool, char *msg);
 /*
 **List functions

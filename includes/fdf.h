@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/05 16:46:56 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/05 19:47:25 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct		s_vector3f
 }					t_vector3f;
 typedef struct		s_sys
 {
-	t_vector3f	*map;
+	t_vector3f	**map;
 	t_size		size_x;
 	t_size		size_y;
 	void		*mlx;

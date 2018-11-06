@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    makefile.lin                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2018/11/05 19:57:30 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/11/05 19:57:40 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,9 @@ NAME=fdf
 FILES:=main	draw	utils	hook	load
 BINS:=$(FILES:=.o)
 BINS:=$(addprefix srcs/, $(BINS))
-INCD:=-I ./includes -I /usr/local/include/ -I ./libft
-LIBD:=-L /usr/local/lib/ -L ./libft
-LLIBS:=-lmlx -lXext -lX11 -lft -lm
-MLIBS:=-lmlx -lft -framework OpenGl -framework AppKit
+INCD:=-I ./includes -I /usr/local/include/ -I /usr/include/X11 -I libft
+LIBD:=-L /usr/local/lib/ -L ./libft -L /usr/lib
+LIBS:=-lmlx -lXext -lX11 -lft -lm
 FLAG:=-Wall -Wextra -Werror -g
 LIBFT:= ./libft/libft.a
 
@@ -29,13 +28,10 @@ all:$(LIBFT) $(NAME)
 	gcc $(FLAG) -o $@ $(INCD) -c $<
 
 $(NAME): $(BINS)
-	gcc $(FLAG) $^ $(LIBD) $(MLIBS) -o $@
+	gcc $(FLAG) $^ $(LIBD) $(LIBS) -o $@
 
 $(LIBFT):
 	make -C ./libft
-
-linux:
-	make -f makefile.lin
 
 clean:
 	rm -f $(BINS)
