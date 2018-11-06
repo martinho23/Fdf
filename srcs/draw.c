@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/06 20:56:24 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/06 21:16:15 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,17 @@ void		line(t_sys sys, t_point a, t_point b, int color)
 	coef.y = (fabs(b.x - a.x) > fabs(b.y - a.y)) ? (b.y - a.y) / \
 	fabs(b.x - a.x) : (b.y - a.y) / fabs(b.y - a.y);
 
+		printf("RND A: |%.18f, %.18f| B: |%.18f, %.18f|\n", round(a.x), round(a.y), round(b.x), round(b.y));
+		printf("NRD A: |%.18f, %.18f| B: |%.18f, %.18f| COEF: |%.18f, %.18f|\n", a.x, a.y, b.x, b.y, coef.x, coef.y);
 	while (round(a.x) != round(b.x) || round(a.y) != round(b.y))
 	{
 		if (on_screen(a))
 			mlx_pixel_put(sys.mlx, sys.win, round(a.x), round(a.y), color);
+		if (ceil(a.x) > ceil(b.x) -1 && ceil(a.x) < ceil(b.x +1))
+		{
+			//printf("RND A: |%.18f, %.18f| B: |%.18f, %.18f|\n", round(a.x), round(a.y), round(b.x), round(b.y));
+			//printf("NRD A: |%.18f, %.18f| B: |%.18f, %.18f| COEF: |%.18f, %.18f|\n", a.x, a.y, b.x, b.y, coef.x, coef.y);
+		}
 		a.x += coef.x;
 		a.y += coef.y;
 	}
