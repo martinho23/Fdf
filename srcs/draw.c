@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/06 15:56:39 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/06 17:22:38 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ void		draw(t_sys *env)
 		i = 0;
 		while (i < env->size_y - 1)
 		{
-			a = vectop(env->map[i][j]);
-			b = vectop(env->map[i + 1][j]);
-			if (on_screen(a) || on_screen(b))
-				line(*env, a, b, mkcolor(0, 255, 0));
+			a = vectop(env->map[i][j], env->cam);
+			b = vectop(env->map[i + 1][j], env->cam);
+			if (!on_screen(a) && on_screen(b) || !on_screen(b) && on_screen(a))
+				
+			line(*env, a, b, mkcolor(0, 255, 0));
 			i++;
 		}
 		j++;

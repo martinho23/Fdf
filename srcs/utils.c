@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:09:29 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/06 15:52:47 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/06 17:10:06 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int		on_screen(t_point pt)
 {
-	if (pt.x < 0 || pt.x > WINW)
+	if (pt.x < (double)0 || pt.x > (double)WINW)
 		return (0);
-	if (pt.y < 0 || pt.y > WINH)
+	if (pt.y < (double)0 || pt.y > (double)WINH)
 		return (0);
 	return (1);
 }
@@ -38,5 +38,6 @@ t_point	vectop(t_vector3f vector, t_vector3f cam)
 
 	p.x = (vector.x - cam.x) * ((vector.z - cam.z) / vector.z) + cam.x;
 	p.y = (vector.y - cam.y) * ((vector.z - cam.z) / vector.z) + cam.y;
+	printf("X[%f], Y[%f]\n", p.x, p.y);
 	return (p);
 }

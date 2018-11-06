@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/05 19:47:25 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/06 15:53:36 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_vector3f
 typedef struct		s_sys
 {
 	t_vector3f	**map;
+	t_vector3f	cam;
 	t_size		size_x;
 	t_size		size_y;
 	void		*mlx;
@@ -55,12 +56,14 @@ typedef struct		s_sys
 /*
 ** Draw.c
 */
+void				draw(t_sys *env);
 void				line(t_sys sys, t_point a, t_point b, int color);
 /*
 ** Utils.c
 */
 int					on_screen(t_point pt);
 int					mkcolor(t_uchar r, t_uchar g, t_uchar b);
+t_point				vectop(t_vector3f vector, t_vector3f cam);
 /*
 ** Hook.c
 */

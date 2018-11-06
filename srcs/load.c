@@ -6,14 +6,13 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:52:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/06 15:24:53 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/06 17:17:31 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <libft.h>
 
 static t_vector3f	*loadLine(t_sys *env, char *line, t_size y)
@@ -33,7 +32,7 @@ static t_vector3f	*loadLine(t_sys *env, char *line, t_size y)
 	{
 		points[i].x = (double)(i * STDW);
 		points[i].y = (double)(y * STDH);
-		points[i].z = (double)ft_atoi(vals[i]);
+		points[i].z = (ft_atoi(vals[i])) ? ft_atoi(vals[i]) : 1;
 		free(vals[i]);
 		i++;
 	}
@@ -52,7 +51,6 @@ void				load(char *map, t_sys *env)
 	ft_thrower((fd < 0), "Map error: Couldn't open the specified file!");
 	env->size_x = 0;
 	env->size_y = ft_countlines(map);
-	printf("%u\n", env->size_y);
 	ft_thrower((env->map = (t_vector3f **)malloc(sizeof(*(env->map)) * \
 env->size_y)) == NULL, "Malloc error: Not enought memory!");
 	i = 0;

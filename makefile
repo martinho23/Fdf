@@ -6,12 +6,12 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2018/11/05 19:57:30 by jfarinha         ###   ########.fr        #
+#    Updated: 2018/11/06 12:33:52 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=fdf
-FILES:=main	draw	utils	hook	load
+FILES:=main	draw	utils	hook	load	draw
 BINS:=$(FILES:=.o)
 BINS:=$(addprefix srcs/, $(BINS))
 INCD:=-I ./includes -I /usr/local/include/ -I ./libft
