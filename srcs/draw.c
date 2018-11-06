@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2018/11/06 17:22:38 by jfarinha         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:56:24 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void		line(t_sys sys, t_point a, t_point b, int color)
 	coef.y = (fabs(b.x - a.x) > fabs(b.y - a.y)) ? (b.y - a.y) / \
 	fabs(b.x - a.x) : (b.y - a.y) / fabs(b.y - a.y);
 
-	while ((int)a.x != (int)b.x || (int)a.y != (int)b.y)
+	while (round(a.x) != round(b.x) || round(a.y) != round(b.y))
 	{
 		if (on_screen(a))
-			mlx_pixel_put(sys.mlx, sys.win, ceil(a.x), ceil(a.y), color);
+			mlx_pixel_put(sys.mlx, sys.win, round(a.x), round(a.y), color);
 		a.x += coef.x;
 		a.y += coef.y;
 	}
@@ -71,9 +71,8 @@ void		draw(t_sys *env)
 		{
 			a = vectop(env->map[i][j], env->cam);
 			b = vectop(env->map[i + 1][j], env->cam);
-			if (!on_screen(a) && on_screen(b) || !on_screen(b) && on_screen(a))
-				
-			line(*env, a, b, mkcolor(0, 255, 0));
+			if (on_screen(a) || on_screen(b))
+				line(*env, a, b, mkcolor(0, 255, 0));
 			i++;
 		}
 		j++;
