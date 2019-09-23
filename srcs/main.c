@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/22 13:20:47 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/23 19:07:43 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		main(int ac, char **av)
 	env.projection = loadProjection(env.a, env.f, env.q);
 	env.translate.x = 0;
 	env.translate.y = 0;
-	env.translate.z = 0;
+	env.translate.z = 1;
 	env.scale.x = 1;
 	env.scale.y = 1;
 	env.scale.z = 1;

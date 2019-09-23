@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/23 17:40:33 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:57:16 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,12 @@ static void	draw_hor(t_sys *env)
 		{
 			a = vec4Mul(draw, env->map[j][i]);
 			b = vec4Mul(draw, env->map[j][i + 1]);
-			//printf("Ax: %f, Ay: %f\n", a.x, a.y);
-			//printf("Bx: %f, By: %f\n", b.x, b.y);
+			a.x = (a.x + 1.0f) * 0.5f * WINW;
+			a.y = (a.y + 1.0f) * 0.5f * WINH;
+			b.x = (b.x + 1.0f) * 0.5f * WINW;
+			b.y = (b.y + 1.0f) * 0.5f * WINH;
+			printf("Ax: %f, Ay: %f, Az: %f\n", a.x, a.y, a.z);
+			printf("Bx: %f, By: %f, Bz: %f\n", b.x, b.y, b.z);
 			if (on_screen(a) || on_screen(b))
 				line(env, a, b, mkcolor(0, 255, 0));
 			i++;
@@ -112,10 +116,16 @@ void		draw(t_sys *env)
 		{
 			a = vec4Mul(draw, env->map[i][j]);
 			b = vec4Mul(draw, env->map[i + 1][j]);
+			a.x = (a.x + 1.0f) * 0.5f * WINW;
+			a.y = (a.y + 1.0f) * 0.5f * WINH;
+			b.x = (b.x + 1.0f) * 0.5f * WINW;
+			b.y = (b.y + 1.0f) * 0.5f * WINH;
+			printf("Ax: %f, Ay: %f, Az: %f\n", a.x, a.y, a.z);
+			printf("Bx: %f, By: %f, Bz: %f\n", b.x, b.y, b.z);
 			//printf("Ax: %f, Ay: %f\n", a.x, a.y);
 			//printf("Bx: %f, By: %f\n", b.x, b.y);
 			if (on_screen(a) || on_screen(b))
-				line(env, a, b, mkcolor(0, 255, 0));
+				line(env, a,  b, mkcolor(0, 255, 0));
 			i++;
 		}
 		j++;

@@ -6,19 +6,19 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/23 17:17:26 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/23 19:06:21 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define FOV 90.0f
-# define ZFAR 100000.0f
+# define ZFAR 10.0f
 # define WINW 1920.0f
 # define WINH 1080.0f
 # define STDW 500.0f
 # define STDH 500.0f
-# define ZNEAR 0.001f
+# define ZNEAR 0.1f
 /*
 ** Some Key codes
 */
@@ -37,6 +37,7 @@
 # define XK_KP_ADD	0xffab
 # define XK_KP_SUB	0xffad
 # define MK_ESC		53
+
 typedef unsigned char	t_uchar;
 typedef unsigned int	t_size;
 typedef double			**t_matrix4f;
@@ -60,6 +61,7 @@ typedef struct		s_sys
 	t_matrix4f	projection;
 	t_size		size_x;
 	t_size		size_y;
+	t_size		size_z;
 	double		a;
 	double		f;
 	double		q;

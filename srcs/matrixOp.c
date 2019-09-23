@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.from>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 19:05:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/20 18:19:56 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:09:38 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	matrix4Mul(t_matrix4f a, t_matrix4f b, t_matrix4f *buff)
 				(*buff)[i][j] += a[i][1] * b[1][j];
 				(*buff)[i][j] += a[i][2] * b[2][j];
 				(*buff)[i][j] += a[i][3] * b[3][j];
-				printf("A[%d][%d] = %f\n", i, j, a[i][j]);
-				printf("B[%d][%d] = %f\n", i, j, b[i][j]);
-				printf("Buff[%d][%d] = %f\n\n", i, j, (*buff)[i][j]);
+//				printf("A[%d][%d] = %f\n", i, j, a[i][j]);
+//				printf("B[%d][%d] = %f\n", i, j, b[i][j]);
+//				printf("Buff[%d][%d] = %f\n\n", i, j, (*buff)[i][j]);
 				j++;
 			}
 			i++;
