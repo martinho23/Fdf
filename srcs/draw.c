@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/20 18:53:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/23 17:40:33 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void		line(t_sys *sys, t_vector3f a, t_vector3f b, int color)
 {
 	t_vector3f	coef;
-
+	int			i;
 
 	a.x = round(a.x);
 	a.y = round(a.y);
@@ -29,15 +29,17 @@ void		line(t_sys *sys, t_vector3f a, t_vector3f b, int color)
 	fabs(b.x - a.x) : (b.x - a.x) / fabs(b.y - a.y);
 	coef.y = (fabs(b.x - a.x) > fabs(b.y - a.y)) ? (b.y - a.y) / \
 	fabs(b.x - a.x) : (b.y - a.y) / fabs(b.y - a.y);
+	i = (fabs(b.x - a.x) > fabs(b.y - a.y)) ? (int)fabs(b.x - a.x) : \
+		(int)fabs(b.y - a.y);
 
-	while (round(a.x) != round(b.x) || round(a.y) != round(b.y) /*&& on_screen(a)*/)
+	while (i)
 	{
 //		printf("Ax: %f, Ay: %f\n", a.x, a.y);
 //		printf("Bx: %f, By: %f\n", b.x, b.y);
-		if (on_screen(a) && (a.x == round(a.x) || a.y == round(a.y)))
-			mlx_pixel_put(sys->mlx, sys->win, round(a.x), round(a.y), color);
+		mlx_pixel_put(sys->mlx, sys->win, round(a.x), round(a.y), color);
 		a.x += coef.x;
 		a.y += coef.y;
+		i--;
 	}
 }
 
@@ -63,9 +65,12 @@ static void	draw_hor(t_sys *env)
 	t_vector3f	a;
 	t_vector3f	b;
 	t_matrix4f	draw;
+	t_matrix4f	translate;
 
 	draw = newMatrix4();
-	matrix4Mul(translate(env), env->projection, &draw);
+	translate = newMatrix4();
+	initTranslate(env, &translate);
+	matrix4Mul(translate, env->projection, &draw);
 	j = 0;
 	while (j < env->size_y)
 	{
@@ -92,9 +97,12 @@ void		draw(t_sys *env)
 	t_vector3f			a;
 	t_vector3f			b;
 	t_matrix4f			draw;
+	t_matrix4f			translate;
 
 	draw = newMatrix4();
-	matrix4Mul(translate(env), env->projection, &draw);
+	translate = newMatrix4();
+	initTranslate(env, &translate);
+	matrix4Mul(translate, env->projection, &draw);
 	mlx_clear_window(env->mlx, env->win);
 	j = 0;
 	while (j < env->size_x && *draw && draw)

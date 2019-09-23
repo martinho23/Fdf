@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/22 13:16:43 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/23 17:17:26 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void				delMatrix4(t_matrix4f *m);
 /*
 **MatrixOp.c
 */
-void				matrix4Mul(t_matrix4f a, t_matrix4f b, t_matrix4f buff);
+void				matrix4Mul(t_matrix4f a, t_matrix4f b, t_matrix4f *buff);
 t_vector3f			vec4Mul(t_matrix4f mat, t_vector3f vec);
 /*
 **Transform.c
 */
-void				initTranslate(t_sys *env, t_matrix4f m);
-void				initScale(t_sys *env, t_matrix4f m);
+void				initTranslate(t_sys *env, t_matrix4f *m);
+void				initScale(t_sys *env, t_matrix4f *m);
 void				initRotation(t_sys *env, t_matrix4f m);
 #endif
