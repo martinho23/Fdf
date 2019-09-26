@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:52:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/23 19:01:59 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/26 19:00:23 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ static void			normalise(t_sys *env)
 		j = 0;
 		while (j < env->size_x)
 		{
+			env->map[i][j].x -= 0.5f * env->size_x;
+			env->map[i][j].y -= 0.5f * env->size_y;
+			env->map[i][j].z -= 0.5f * env->size_z;
 			env->map[i][j].x /= env->size_x;
 			env->map[i][j].y /= env->size_y;
 			env->map[i][j].z /= env->size_z;
@@ -83,9 +86,9 @@ env->size_y)) == NULL, "Malloc error: Not enought memory!");
 		i++;
 	}
 	normalise(env);
-	printf("X: %i\n", env->size_x);
-	printf("Y: %i\n", env->size_y);
-	printf("Z: %i\n", env->size_z);
+//	printf("X: %i\n", env->size_x);
+//	printf("Y: %i\n", env->size_y);
+//	printf("Z: %i\n", env->size_z);
 	close(fd);
 }
 

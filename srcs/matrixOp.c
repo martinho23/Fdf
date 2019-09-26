@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.from>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 19:05:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/23 18:09:38 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/23 19:49:58 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	matrix4Mul(t_matrix4f a, t_matrix4f b, t_matrix4f *buff)
 			i++;
 		}
 	}
-	printf("\n");
+//	printf("\n");
 }
 
 t_vector3f	vec4Mul(t_matrix4f mat, t_vector3f vec)

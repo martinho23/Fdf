@@ -6,14 +6,14 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/23 19:06:21 by jfarinha         ###   ########.fr       */
+/*   Updated: 2019/09/26 20:45:40 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define FOV 90.0f
-# define ZFAR 10.0f
+# define ZFAR 1000.0f
 # define WINW 1920.0f
 # define WINH 1080.0f
 # define STDW 500.0f
