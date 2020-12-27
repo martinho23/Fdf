@@ -1,0 +1,6 @@
+[submodule "ft_xlib"]
+	path = ft_xlib
+	url = https://github.com/martinho23/ft_xlib.git
+[submodule "libft"]
+	path = libft
+	url = https://github.com/martinho23/libft.git
