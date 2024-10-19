@@ -1,0 +1,3 @@
+-I./include/
+-I./minilibx-linux/
+-I./libft/

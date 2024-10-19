@@ -43,6 +43,7 @@ static t_vector3f	*loadLine(t_sys *env, char *line, t_size y)
 	free(vals);
 	return (points);
 }
+
 static void			normalise(t_sys *env)
 {
 	size_t	i;
@@ -56,10 +57,10 @@ static void			normalise(t_sys *env)
 		{
 			env->map[i][j].x -= 0.5f * env->size_x;
 			env->map[i][j].y -= 0.5f * env->size_y;
-			env->map[i][j].z -= 0.5f * env->size_z;
-			env->map[i][j].x /= env->size_x;
-			env->map[i][j].y /= env->size_y;
-			env->map[i][j].z /= env->size_z;
+            env->map[i][j].z += 1.0f;
+		//	env->map[i][j].x /= env->size_x;
+		//	env->map[i][j].y /= env->size_y;
+		//	env->map[i][j].z /= env->size_z;
 			j++;
 		}
 		i++;
@@ -85,10 +86,14 @@ env->size_y)) == NULL, "Malloc error: Not enought memory!");
 		env->map[i] = loadLine(env, line, i);
 		i++;
 	}
-	normalise(env);
-//	printf("X: %i\n", env->size_x);
-//	printf("Y: %i\n", env->size_y);
-//	printf("Z: %i\n", env->size_z);
+    normalise(env);
+	printf("X: %f ", env->map[0]->x);
+	printf("Y: %f ", env->map[0]->y);
+	printf("Z: %f ", env->map[0]->z);
+    printf("size X: %d ", env->size_x);
+	printf("Size Y: %d ", env->size_y);
+	printf("Size Z: %d\n", env->size_z);
+
 	close(fd);
 }
 

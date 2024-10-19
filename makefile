@@ -11,17 +11,17 @@
 # **************************************************************************** #
 
 NAME=fdf
-FILES:=main	draw	utils	hook	load	matrix	matrixOp	transform
+FILES:=main	draw	utils	hook	load	matrix	matrixOp	transform screenBuffer
 BINS:=$(FILES:=.o)
 BINS:=$(addprefix srcs/, $(BINS))
-INCD:=-I ./includes -I /usr/local/include/ -I /usr/include/X11 -I libft -I minilibx-linux
+INCD:=-I ./include -I /usr/local/include/ -I /usr/include/X11 -I libft -I minilibx-linux
 LIBD:=-L /usr/local/lib/ -L ./libft -L /usr/lib -L minilibx-linux
 LIBS:=-lmlx -lXext -lX11 -lft -lm
-FLAG:=-Wall -Wextra -Werror -g
+FLAG:=-Wall -Wextra -Werror -ggdb
 LIBFT:= ./libft/libft.a
 LIBX:= ./minilibx-linux/mlx
 
-.PHONY:all clean fclean re fullre libclean linux
+.PHONY:all clean fclean re fullre libclean linux run
 
 all:$(LIBFT) $(LIBX) $(NAME)
 
@@ -49,3 +49,6 @@ libclean:
 re: fclean all
 
 fullre: fclean libclean all
+
+run: all
+	./fdf maps/42.fdf

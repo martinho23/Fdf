@@ -10,44 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include <../include/fdf.h>
 #include "../libft/libft.h"
 
-t_matrix4f	newMatrix4(void)
+p_matrix4f	newMatrix4(void)
 {
 	int			i;
-	t_matrix4f	m;
+	p_matrix4f	m;
 
-	if (!(m =ft_memalloc(4 * sizeof(*m))))
+	if (!(m = ft_memalloc(4 * sizeof(*m))))
 		return (NULL);
-	i = 0;
-	while (i < 4)
-	{
-		if (!(m[i] = ft_memalloc(4 * sizeof(**m))))
-			return (NULL);
-		i++;
-	}
-	return (m);
+	
+    return (m);
 }
 
-void		delMatrix4(t_matrix4f *m)
+void		delMatrix4(p_matrix4f m)
 {
 	int	i;
 
-	if (m != NULL && *m != NULL && **m != NULL )
+	if (m != NULL)
 	{
-		i = 0;
-		while (i < 4)
-		{
-			free((*m)[i]);
-			(*m)[i] = NULL;
-			i++;
-		}
-	}
-	if (m != NULL && *m != NULL)
-	{
-		free(*m);
-		*m = NULL;
+		free(m);
+		m = NULL;
 	}
 }
 

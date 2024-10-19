@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <fdf.h>
-#include <math.h>
-#include <stdio.h>
 
 int		on_screen(t_vector3f pt)
 {
