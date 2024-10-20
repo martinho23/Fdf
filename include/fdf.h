@@ -95,8 +95,8 @@ typedef struct			s_vector2i
        
         struct 
         {
-            double	x;
-	        double	y;
+            int	x;
+	        int	y;
         };
     };
 }						t_vector2i, *ptr_vector2i;
@@ -109,9 +109,9 @@ typedef struct			s_vector3i
 
         struct
         {
-	        double	x;
-	        double	y;
-	        double	z;
+	        int x;
+	        int y;
+	        int z;
         };
     };
 }                       t_vector3i, *ptr_vector3i;
@@ -124,10 +124,10 @@ typedef struct          s_vector4i
 
         struct
         {
-            double x;
-            double y;
-            double z;
-            double w;
+            int x;
+            int y;
+            int z;
+            int w;
         };
     };
 }                       t_vector4i, *ptr_vector4i;

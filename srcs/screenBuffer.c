@@ -88,7 +88,7 @@ void clearScreenSurface(t_sys *env, int color)
         while(iterator.x < screen->size.x/2)
         {
             
-            dest = screen->addr + (int)(line + (iterator.x * (screen->pixelSize / 8.f) * 2));
+            dest = screen->addr + (line + (iterator.x * (screen->pixelSize / 8) * 2));
             *(long int*)dest = fillColor;
             iterator.x ++;
         }
