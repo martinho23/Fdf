@@ -15,6 +15,14 @@
 #include <mlx.h>
 #include <stdio.h>
 
+int drawBuffer(t_sys *env)
+{
+    mlx_put_image_to_window(env->mlx, env->win, env->screenSurface->image, 0, 0);
+    SWAPSCREENSURFACE(env->screenSurface);
+
+    return (0);
+}
+
 t_screenSurface *initScreenSurface(t_sys *env, t_size width, t_size height) {
     t_screenSurface *surface1 = malloc(sizeof(t_screenSurface));
     t_screenSurface *surface2 = malloc(sizeof(t_screenSurface));

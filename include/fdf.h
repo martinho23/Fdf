@@ -216,7 +216,7 @@ typedef struct		s_sys
 ** Draw.c
 */
 int         		draw(t_sys *env);
-void				line(t_sys *sys, t_vector4f a, t_vector4f b, int color);
+void				line(t_sys *sys, t_vector2f a, t_vector2f b, int color);
 t_matrix4f			loadProjection(double a, double f, double q);
 /*
 ** Utils.c
@@ -250,6 +250,7 @@ void				initRotation(t_sys *env, ptr_matrix4f m);
 /*
 **ScreenBuffer.c
 */
+int                drawBuffer(t_sys *env);
 void                clearScreenSurface(t_sys *env, int color);
 void                freeScreenSurface(t_sys *env);
 t_screenSurface     *initScreenSurface(t_sys *env, t_size width, t_size height);

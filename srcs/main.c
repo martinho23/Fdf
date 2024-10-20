@@ -16,15 +16,6 @@
 #include <mlx.h>
 #include <stdio.h>
 
-int drawBuffer(t_sys *env)
-{
-    clearScreenSurface(env, 0x18181818);
-    mlx_put_image_to_window(env->mlx, env->win, env->screenSurface->image, 0, 0);
-    SWAPSCREENSURFACE(env->screenSurface);
-
-    return (0);
-}
-
 int main(int ac, char **av) {
   t_sys env;
 
@@ -46,8 +37,8 @@ int main(int ac, char **av) {
   env.scale.z = 1;
   printf("print done!\n");
   env.screenSurface = initScreenSurface(&env, WINW, WINH);
-  mlx_loop_hook(env.win, drawBuffer, &env);
-  mlx_expose_hook(env.win, drawBuffer, &env);
+  mlx_loop_hook(env.win, draw, &env);
+  mlx_expose_hook(env.win, draw, &env);
   mlx_key_hook(env.win, keyhook, &env);
   mlx_loop(env.mlx);
   return (0);
