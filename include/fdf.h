@@ -43,33 +43,142 @@
 typedef unsigned char	t_uchar;
 typedef unsigned int	t_size;
 typedef void            *t_image;
-typedef struct          s_matrix4f
+
+/*
+**  Matrix type definitions
+*/
+typedef struct          s_matrix3f
 {
     union
-    {             
-        /*  
-        ** Index array definition
-        */
-        float m[4][4];
-        /*
-        ** Explicit Name Variables
-        */
+    {   
+        double m[3][3];
+       
         struct
         {
-            float m00, m01, m02, m03;
-            float m10, m11, m12, m13;
-            float m20, m21, m22, m23;
-            float m30, m31, m32, m33;
+            double m00, m01, m02, m03;
+            double m10, m11, m12, m13;
+            double m20, m21, m22, m23;
+            double m30, m31, m32, m33;
 
         };
 
     };
-}                       t_matrix4f, *p_matrix4f;
-typedef struct			s_point
+}                       t_matrix3f, *ptr_matrix3f;
+
+typedef struct          s_matrix4f
 {
-    double	x;
-	double	y;
-}						t_point;
+    union
+    {   
+        double m[4][4];
+       
+        struct
+        {
+            double m00, m01, m02, m03;
+            double m10, m11, m12, m13;
+            double m20, m21, m22, m23;
+            double m30, m31, m32, m33;
+
+        };
+
+    };
+}                       t_matrix4f, *ptr_matrix4f;
+
+/*
+**  VectorI type definitions
+*/
+typedef struct			s_vector2i
+{
+    union
+    {
+        double m[2];
+       
+        struct 
+        {
+            double	x;
+	        double	y;
+        };
+    };
+}						t_vector2i, *ptr_vector2i;
+
+typedef struct			s_vector3i
+{
+    union
+    {
+        double m[3]; 
+
+        struct
+        {
+	        double	x;
+	        double	y;
+	        double	z;
+        };
+    };
+}                       t_vector3i, *ptr_vector3i;
+
+typedef struct          s_vector4i 
+{
+    union
+    {
+        double m[4];
+
+        struct
+        {
+            double x;
+            double y;
+            double z;
+            double w;
+        };
+    };
+}                       t_vector4i, *ptr_vector4i;
+
+/*
+**  VectorF type definitions
+*/
+typedef struct			s_vector2f
+{
+    union
+    {
+        double m[2];
+       
+        struct 
+        {
+            double	x;
+	        double	y;
+        };
+    };
+}						t_vector2f, *ptr_vector2f;
+
+typedef struct			s_vector3f
+{
+    union
+    {
+        double m[3]; 
+
+        struct
+        {
+	        double	x;
+	        double	y;
+	        double	z;
+        };
+    };
+}                       t_vector3f, *ptr_vector3f;
+
+typedef struct          s_vector4f
+{
+    union
+    {
+        double m[4];
+
+        struct
+        {
+            double x;
+            double y;
+            double z;
+            double w;
+        };
+    };
+}                       t_vector4f, *ptr_vector4f;
+
 typedef struct          s_screenSurface
 {
     t_image                 image;
@@ -79,15 +188,13 @@ typedef struct          s_screenSurface
     char *                  addr;
     struct s_screenSurface  *next;
 }                       t_screenSurface;
-typedef struct			s_vector3f
-{
-	double	x;
-	double	y;
-	double	z;
-}					t_vector3f;
+
+/*
+**  System type definitions
+*/
 typedef struct		s_sys
 {
-	t_vector3f  	**map;
+	t_vector4f      **map;
 	t_vector3f  	translate;
 	t_vector3f  	scale;
 	t_vector3f  	rotation;
@@ -102,16 +209,17 @@ typedef struct		s_sys
 	void		    *win;
     t_screenSurface *screenSurface;
 }			    	t_sys;
+
 /*
 ** Draw.c
 */
 int         		draw(t_sys *env);
-void				line(t_sys *sys, t_vector3f a, t_vector3f b, int color);
+void				line(t_sys *sys, t_vector4f a, t_vector4f b, int color);
 t_matrix4f			loadProjection(double a, double f, double q);
 /*
 ** Utils.c
 */
-int					on_screen(t_vector3f pt);
+int					on_screen(t_vector4f pt);
 int					mkcolor(t_uchar r, t_uchar g, t_uchar b);
 /*
 ** Hook.c
@@ -124,19 +232,19 @@ void				load(char *map, t_sys *env);
 /*
 **Matrix4
 */
-p_matrix4f			newMatrix4(void);
-void				delMatrix4(p_matrix4f m);
+ptr_matrix4f		newMatrix4(void);
+void				delMatrix4(ptr_matrix4f m);
 /*
 **MatrixOp.c
 */
-void				matrix4Mul(p_matrix4f a, p_matrix4f b, p_matrix4f buff);
-t_vector3f			vec4Mul(p_matrix4f mat, t_vector3f vec);
+void				matrix4Mul(ptr_matrix4f a, ptr_matrix4f b, ptr_matrix4f buff);
+t_vector4f			vec4Mul(t_matrix4f mat, ptr_vector4f vec);
 /*
 **Transform.c
 */
-void				initTranslate(t_sys *env, p_matrix4f m);
-void				initScale(t_sys *env, p_matrix4f m);
-void				initRotation(t_sys *env, p_matrix4f m);
+void				initTranslate(t_sys *env, ptr_matrix4f m);
+void				initScale(t_sys *env, ptr_matrix4f m);
+void				initRotation(t_sys *env, ptr_matrix4f m);
 /*
 **ScreenBuffer.c
 */

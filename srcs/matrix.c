@@ -13,10 +13,9 @@
 #include <../include/fdf.h>
 #include "../libft/libft.h"
 
-p_matrix4f	newMatrix4(void)
+ptr_matrix4f	newMatrix4(void)
 {
-	int			i;
-	p_matrix4f	m;
+	ptr_matrix4f	m;
 
 	if (!(m = ft_memalloc(4 * sizeof(*m))))
 		return (NULL);
@@ -24,10 +23,8 @@ p_matrix4f	newMatrix4(void)
     return (m);
 }
 
-void		delMatrix4(p_matrix4f m)
+void		delMatrix4(ptr_matrix4f m)
 {
-	int	i;
-
 	if (m != NULL)
 	{
 		free(m);

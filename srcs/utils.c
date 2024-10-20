@@ -12,7 +12,7 @@
 
 #include <fdf.h>
 
-int		on_screen(t_vector3f pt)
+int		on_screen(t_vector4f pt)
 {
 	if (pt.x < (double)0 || pt.x > (double)WINW)
 		return (0);

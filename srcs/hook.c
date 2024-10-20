@@ -39,7 +39,7 @@ int		keyhook(int keycode, void *p)
 
 int		mousehook(int keycode, int x, int y, void *p)
 {
-	((t_point *)p)->x = x;
-	((t_point *)p)->y = y;
+	((t_vector2i *)p)->x = x;
+	((t_vector2i *)p)->y = y;
 	return (keycode);
 }

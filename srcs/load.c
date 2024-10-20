@@ -16,9 +16,9 @@
 #include <stdlib.h>
 #include <libft.h>
 
-static t_vector3f	*loadLine(t_sys *env, char *line, t_size y)
+static t_vector4f	*loadLine(t_sys *env, char *line, t_size y)
 {
-	t_vector3f	*points;
+	t_vector4f	*points;
 	t_size		i;
 	char		**vals;
 
@@ -27,7 +27,7 @@ static t_vector3f	*loadLine(t_sys *env, char *line, t_size y)
 	if (!env->size_x)
 		while (vals[env->size_x])
 			env->size_x++;
-	ft_thrower(((points = (t_vector3f *)malloc(sizeof(*points) * env->size_x))\
+	ft_thrower(((points = (t_vector4f *)malloc(sizeof(*points) * env->size_x))\
 == NULL), "Malloc error: Not enought memory!");
 	while (i < env->size_x)
 	{
@@ -78,7 +78,7 @@ void				load(char *map, t_sys *env)
 	env->size_x = 0;
 	env->size_z = 0;
 	env->size_y = ft_countlines(map);
-	ft_thrower((env->map = (t_vector3f **)malloc(sizeof(*(env->map)) * \
+	ft_thrower((env->map = (t_vector4f **)malloc(sizeof(*(env->map)) * \
 env->size_y)) == NULL, "Malloc error: Not enought memory!");
 	i = 0;
 	while (get_next_line(fd, &line))

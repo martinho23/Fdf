@@ -37,7 +37,7 @@ int main(int ac, char **av) {
   env.f = 1 / tan(FOV * 3.14159f / 180.0f * 0.5f);
   env.q = ZFAR / (ZFAR - ZNEAR);
   printf("a: %f, f: %f q: %f\n", env.a, env.f, env.q);
-  env.projection = *loadProjection(env.a, env.f, env.q);
+  env.projection = loadProjection(env.a, env.f, env.q);
   env.translate.x = 0;
   env.translate.y = 0;
   env.translate.z = 1;
