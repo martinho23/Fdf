@@ -20,6 +20,7 @@
 # define STDH 500.0f
 # define ZNEAR 0.1f
 # define SWAPSCREENSURFACE(screenSurface) screenSurface = screenSurface->next;
+# define GRIDSCALE 5
 
 /*
 ** Some Key codes

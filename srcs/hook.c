@@ -22,17 +22,17 @@ int		keyhook(int keycode, void *p)
 	if (keycode == XK_ESC)
 		exit(0);
 	if (keycode == XK_UP)
-		tmp->translate.y -= 0.1;
+		tmp->translate.y -= 1;
 	if (keycode == XK_DOWN)
-		tmp->translate.y += 0.1;
+		tmp->translate.y += 1;
 	if (keycode == XK_LEFT)
-		tmp->translate.x -= 0.1;
+		tmp->translate.x -= 1;
 	if (keycode == XK_RIGHT)
-		tmp->translate.x += 0.1;
+		tmp->translate.x += 1;
 	if (keycode == XK_KP_ADD)
-		tmp->translate.z -= 0.1;
+		tmp->translate.z -= 1;
 	if (keycode == XK_KP_SUB)
-		tmp->translate.z += 0.1;
+		tmp->translate.z += 1;
 	draw(tmp);
 	return (0);
 }

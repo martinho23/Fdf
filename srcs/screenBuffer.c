@@ -8,7 +8,7 @@ t_screenSurface *initScreenSurface(t_sys *env, t_size width, t_size height) {
     t_screenSurface *surface1 = malloc(sizeof(t_screenSurface));
     t_screenSurface *surface2 = malloc(sizeof(t_screenSurface));
 
-    ft_thrower(!env->mlx, "MLX pointer is NULL");
+    ft_thrower(!env->mlx, "Can't create surface because MLX pointer is NULL");
     ft_thrower(!surface1,
              "Couldn't malloc enought space to allocate surface 1\n");
     ft_thrower(!surface2,

@@ -31,8 +31,8 @@ static t_vector4f	*loadLine(t_sys *env, char *line, t_size y)
 == NULL), "Malloc error: Not enought memory!");
 	while (i < env->size_x)
 	{
-		points[i].x = (double)i;
-		points[i].y = (double)y;
+		points[i].x = GRIDSCALE * (double)i;
+		points[i].y = GRIDSCALE * (double)y;
 		points[i].z = ft_atoi(vals[i]);
 		if (env->size_z < points[i].z)
 			env->size_z = points[i].z;
@@ -44,7 +44,7 @@ static t_vector4f	*loadLine(t_sys *env, char *line, t_size y)
 	return (points);
 }
 
-static void			normalise(t_sys *env)
+void			normalise(t_sys *env)
 {
 	size_t	i;
 	size_t	j;
@@ -57,7 +57,6 @@ static void			normalise(t_sys *env)
 		{
 			env->map[i][j].x -= 0.5f * env->size_x;
 			env->map[i][j].y -= 0.5f * env->size_y;
-            env->map[i][j].z += 1.0f;
 		//	env->map[i][j].x /= env->size_x;
 		//	env->map[i][j].y /= env->size_y;
 		//	env->map[i][j].z /= env->size_z;
@@ -86,7 +85,7 @@ env->size_y)) == NULL, "Malloc error: Not enought memory!");
 		env->map[i] = loadLine(env, line, i);
 		i++;
 	}
-    normalise(env);
+
 	printf("X: %f ", env->map[0]->x);
 	printf("Y: %f ", env->map[0]->y);
 	printf("Z: %f ", env->map[0]->z);

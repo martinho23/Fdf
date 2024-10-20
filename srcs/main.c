@@ -38,9 +38,9 @@ int main(int ac, char **av) {
   env.q = ZFAR / (ZFAR - ZNEAR);
   printf("a: %f, f: %f q: %f\n", env.a, env.f, env.q);
   env.projection = loadProjection(env.a, env.f, env.q);
-  env.translate.x = 0;
-  env.translate.y = 0;
-  env.translate.z = 1;
+  env.translate.x = (15 / WINW) * env.size_x;
+  env.translate.y = (15 / WINH) * env.size_y;
+  env.translate.z = (env.size_x * env.size_y) / 2.5f;
   env.scale.x = 1;
   env.scale.y = 1;
   env.scale.z = 1;
