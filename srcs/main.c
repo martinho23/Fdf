@@ -18,9 +18,9 @@
 
 int drawBuffer(t_sys *env)
 {
+    clearScreenSurface(env, 0x18181818);
     mlx_put_image_to_window(env->mlx, env->win, env->screenSurface->image, 0, 0);
     SWAPSCREENSURFACE(env->screenSurface);
-    clearScreenSurface(env);
 
     return (0);
 }
@@ -40,14 +40,14 @@ int main(int ac, char **av) {
   env.projection = loadProjection(env.a, env.f, env.q);
   env.translate.x = (15 / WINW) * env.size_x;
   env.translate.y = (15 / WINH) * env.size_y;
-  env.translate.z = (env.size_x * env.size_y) / 2.5f;
+  env.translate.z = ((double)env.size_y * 10.f);
   env.scale.x = 1;
   env.scale.y = 1;
   env.scale.z = 1;
   printf("print done!\n");
   env.screenSurface = initScreenSurface(&env, WINW, WINH);
-  mlx_loop_hook(env.win, draw, &env);
-  mlx_expose_hook(env.win, draw, &env);
+  mlx_loop_hook(env.win, drawBuffer, &env);
+  mlx_expose_hook(env.win, drawBuffer, &env);
   mlx_key_hook(env.win, keyhook, &env);
   mlx_loop(env.mlx);
   return (0);

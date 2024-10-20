@@ -69,20 +69,30 @@ void freeScreenSurface(t_sys *env)
     free(screenSurface2);
 }
 
-void clearScreenSurface(t_sys *env)
+void clearScreenSurface(t_sys *env, int color)
 {
     t_screenSurface *screen = env->screenSurface;
-    t_vector2f iterator;
+    t_vector2i iterator;
+    char *dest;
 
+
+    long int fillColor = color;
+    fillColor = fillColor << 32 | color;
     iterator.y = 0;
+    (void)color;
     while(iterator.y < screen->size.y)
     {
+        int line = iterator.y * screen->lineSize;
         iterator.x = 0;
-        while(iterator.x < screen->x)
+
+        while(iterator.x < screen->size.x/2)
         {
             
+            dest = screen->addr + (int)(line + (iterator.x * (screen->pixelSize / 8.f) * 2));
+            *(long int*)dest = fillColor;
+            iterator.x ++;
         }
-        
-    }
 
+        iterator.y ++;
+    }
 }

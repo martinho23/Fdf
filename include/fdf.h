@@ -14,8 +14,8 @@
 # define FDF_H
 # define FOV 90.0f
 # define ZFAR 1000.0f
-# define WINW 800.0f
-# define WINH 600.0f
+# define WINW 1600.0f
+# define WINH 900.0f
 # define STDW 500.0f
 # define STDH 500.0f
 # define ZNEAR 0.1f
@@ -250,7 +250,7 @@ void				initRotation(t_sys *env, ptr_matrix4f m);
 /*
 **ScreenBuffer.c
 */
-void                clearScreenSurface(t_sys *env);
+void                clearScreenSurface(t_sys *env, int color);
 void                freeScreenSurface(t_sys *env);
 t_screenSurface     *initScreenSurface(t_sys *env, t_size width, t_size height);
 t_screenSurface     *resizeSceenSurface(t_sys *env, t_size width, t_size height);

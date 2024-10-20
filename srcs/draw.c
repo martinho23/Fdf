@@ -46,10 +46,10 @@ void		line(t_sys *sys, t_vector4f a, t_vector4f b, int color)
 t_matrix4f	loadProjection(double a, double f, double q)
 {
     const float       d = 0.5f * WINW * tan(45);
-	const t_matrix4f  m =  {{{{d, 0,                  0,  0 }, \
-                     {   0, d * (WINW / WINH),  0,  0 }, \
-                     {   0, 0,                  1,  1 }, \
-                     {   0, 0,                  0,  0 }}}};
+	const t_matrix4f  m =  {{{{ d, 0,   0,  0 }, \
+                            {   0, d,   0,  0 }, \
+                            {   0, 0,   1,  1 }, \
+                            {   0, 0,   0,  0 }}}};
     (void)a;
     (void)f;
 	(void)q;
@@ -146,8 +146,8 @@ int     draw(t_sys *env)
 			i++;
 		}
 		j++;
-		draw_hor(env);
 	}
+	draw_hor(env);
 	delMatrix4(draw);
     return (0);
 }

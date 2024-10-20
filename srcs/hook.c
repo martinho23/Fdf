@@ -19,21 +19,22 @@ int		keyhook(int keycode, void *p)
 {
 	t_sys *tmp;
 	tmp = (t_sys *)p;
+    mlx_do_key_autorepeaton(tmp->mlx);
 	if (keycode == XK_ESC)
 		exit(0);
 	if (keycode == XK_UP)
-		tmp->translate.y -= 1;
+		tmp->translate.y -= 10;
 	if (keycode == XK_DOWN)
-		tmp->translate.y += 1;
+		tmp->translate.y += 10;
 	if (keycode == XK_LEFT)
-		tmp->translate.x -= 1;
+		tmp->translate.x -= 10;
 	if (keycode == XK_RIGHT)
-		tmp->translate.x += 1;
+		tmp->translate.x += 10;
 	if (keycode == XK_KP_ADD)
-		tmp->translate.z -= 1;
+		tmp->translate.z -= 10;
 	if (keycode == XK_KP_SUB)
-		tmp->translate.z += 1;
-	draw(tmp);
+		tmp->translate.z += 10;
+    draw(tmp);
 	return (0);
 }
 
