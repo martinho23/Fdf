@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/26 20:45:40 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:07:50 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ typedef struct          s_vector4f
 typedef struct          s_screenSurface
 {
     t_image                 image;
+    t_vector2i              size;
     int                     pixelSize;
     int                     lineSize;
     int                     indian;

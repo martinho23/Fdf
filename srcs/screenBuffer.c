@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   screenBuffer.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfarinha </var/spool/mail/jfarinha>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/20 16:05:14 by jfarinha          #+#    #+#             */
+/*   Updated: 2024/10/20 16:43:01 by jfarinha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fdf.h>
 #include <libft.h>
 #include <mlx.h>
 #include <stdio.h>
-// #define malloc(x) NULL
 
 t_screenSurface *initScreenSurface(t_sys *env, t_size width, t_size height) {
     t_screenSurface *surface1 = malloc(sizeof(t_screenSurface));
@@ -24,8 +35,15 @@ t_screenSurface *initScreenSurface(t_sys *env, t_size width, t_size height) {
     ft_thrower(!surface2->image,
              "mlx couldn't allocate enought space for the surface2");
 
-    surface1->addr = mlx_get_data_addr(surface1->image, &surface1->pixelSize, &surface1->lineSize, &surface1->indian);
-    surface2->addr = mlx_get_data_addr(surface2->image, &surface2->pixelSize, &surface2->lineSize, &surface2->indian);
+    surface1->size.x = width;
+    surface1->size.y = height;
+    surface2->size.x = width;
+    surface2->size.y = height;
+
+    surface1->addr = mlx_get_data_addr(surface1->image, &surface1->pixelSize, \
+            &surface1->lineSize, &surface1->indian);
+    surface2->addr = mlx_get_data_addr(surface2->image, &surface2->pixelSize, \
+            &surface2->lineSize, &surface2->indian);
 
     return (surface1);
 }
@@ -54,6 +72,17 @@ void freeScreenSurface(t_sys *env)
 void clearScreenSurface(t_sys *env)
 {
     t_screenSurface *screen = env->screenSurface;
+    t_vector2f iterator;
 
-   printf("Pixel size: %d, %d pixels per line, in Indian %d at addr: %p\n", screen->pixelSize, screen->lineSize / (screen->pixelSize / 8), screen->indian, screen->addr);
+    iterator.y = 0;
+    while(iterator.y < screen->size.y)
+    {
+        iterator.x = 0;
+        while(iterator.x < screen->x)
+        {
+            
+        }
+        
+    }
+
 }

@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:52:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/26 19:00:23 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:43:27 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static t_vector4f	*loadLine(t_sys *env, char *line, t_size y)
 	free(vals);
 	return (points);
 }
-
 void			normalise(t_sys *env)
 {
 	size_t	i;
