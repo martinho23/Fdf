@@ -91,12 +91,12 @@ typedef struct			s_vector2i
 {
     union
     {
-        double m[2];
+        int m[2];
        
         struct 
         {
-            double	x;
-	        double	y;
+            int	x;
+	        int	y;
         };
     };
 }						t_vector2i, *ptr_vector2i;
@@ -105,13 +105,13 @@ typedef struct			s_vector3i
 {
     union
     {
-        double m[3]; 
+        int m[3]; 
 
         struct
         {
-	        double	x;
-	        double	y;
-	        double	z;
+	        int x;
+	        int y;
+	        int z;
         };
     };
 }                       t_vector3i, *ptr_vector3i;
@@ -120,14 +120,14 @@ typedef struct          s_vector4i
 {
     union
     {
-        double m[4];
+        int m[4];
 
         struct
         {
-            double x;
-            double y;
-            double z;
-            double w;
+            int x;
+            int y;
+            int z;
+            int w;
         };
     };
 }                       t_vector4i, *ptr_vector4i;
