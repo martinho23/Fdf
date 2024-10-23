@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/20 16:07:50 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:20:39 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_H
 # define FOV 90.0f
 # define ZFAR 1000.0f
-# define WINW 1600.0f
-# define WINH 900.0f
+# define WINW 1440.0f
+# define WINH 720.0f
 # define STDW 500.0f
 # define STDH 500.0f
 # define ZNEAR 0.1f

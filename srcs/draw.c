@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/26 20:30:11 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:10:10 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,47 @@
 #include <fdf.h>
 #include <libft.h>
 
-static inline t_vector2f clampPointToScreen(t_sys *sys, t_vector2f point)
+static  t_vector2f clampPointToScreen(t_sys *sys, t_vector2f point)
 {
-    t_screenSurface screen = *sys->screenSurface;
+    t_screenSurface *screen = sys->screenSurface;
 
-    point.x = (point.x > 0) ? point.x : 0;
-    point.x = (point.x < screen.size.x) ? point.x : screen.size.x;
-    point.y = (point.y > 0) ? point.y : 0;
-    point.y = (point.y < screen.size.y) ? point.y : screen.size.y;
+    //printf("Before clamp Point X:%d, Y:%d\n", (int)(point.x), (int)(point.y));
+    if ((int)point.x < 0)
+        point.x =  0;
+    if ((int)point.x > screen->size.x)
+        point.x = (float)screen->size.x;
+    if ((int)point.y < 0)
+        point.y = 0;
+    if ((int)point.y > screen->size.y)
+        point.y = (float)screen->size.y;
+    //printf("After clamp Point X:%d, Y:%d\n", (int)(point.x), (int)(point.y));
     
     return (point);
 }
 
-static inline double min(double a, double b)
+static inline double mind(double a, double b)
 {
     return ((a < b) ? a : b);
+}
+
+static inline double maxd(double a, double b)
+{
+    return ((a > b) ? a : b);
+}
+
+static inline int mini(int  a, int b)
+{
+    return ((a < b) ? a : b);
+}
+
+static inline int maxi(int  a, int b)
+{
+    return ((a > b) ? a : b);
 }
 
 static inline void putPixelToScreenSurface(t_screenSurface *screen, t_vector2i point, unsigned int color)
 {
     char *dest;
-
-    ft_thrower(point.x < 0, "Point.x is smaller than screen buffer");
-    ft_thrower(point.x > screen->size.x , "Point.x is smaller than screen buffer");
-    ft_thrower(point.y < 0, "Point.y is smaller than screen buffer");
-    ft_thrower(point.y > screen->size.y, "Point.y is smaller than screen buffer");
 
     dest = (screen->addr + (point.y * screen->lineSize) + ((point.x * screen->pixelSize) / 8));
     *(unsigned int *)dest = color;
@@ -71,38 +87,86 @@ void		line(t_sys *sys, t_vector2f a, t_vector2f b, int color)
     t_vector2f linePoint;
     int         step;
 
-    //a = clampPointToScreen(sys, a);
-    //b = clampPointToScreen(sys, b);
-
+    a = clampPointToScreen(sys, a);
+    b = clampPointToScreen(sys, b);
+    
     delta.x = fabs(b.x - a.x);
     delta.y = fabs(b.y - a.y);
-    printf("Line is from A.x:%f A.y:%f to B.x:%f A.y:%f\n", a.x, a.y, b.x, b.y);
-    printf("Line has Delta.x:%f Delta.y:%f\n", delta.x, delta.y);
 
     step = (delta.x > delta.y) ? delta.x : delta.y;
 
     delta.x /= step;
     delta.y /= step;
 
-    linePoint.x = a.x;
-    linePoint.y = a.y;
+    linePoint.x = mind(a.x, b.x);
+    linePoint.y = mind(a.y, b.y);
 
-    t_vector2i point = {{{(int)linePoint.x, (int)linePoint.y}}};
     
     while (step)
     {
-        point = (t_vector2i){{{floor(linePoint.x), floor(linePoint.y)}}};
-
+        t_vector2i point = {{{(int)linePoint.x, (int)linePoint.y}}};
+       
         putPixelToScreenSurface(sys->screenSurface, point, color);
-        
+     
         linePoint.x += delta.x;
         linePoint.y += delta.y;
 
         step --;
     }       
 
-    point = (t_vector2i){{{(int)b.x, (int)b.y}}};
-    putPixelToScreenSurface(sys->screenSurface, point, color);
+}
+
+void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
+{
+    t_vector2i  delta;
+    t_vector2i  point;
+    int         error;
+
+    delta = (t_vector2i){{{b.x - a.x, b.y - a.y}}};
+    if (delta.x > delta.y)
+    {
+        point = (t_vector2i){{{a.x, a.y}}};
+        error = 2 * delta.y - delta.x;
+
+        while (point.x < b.x)
+        {
+            putPixelToScreenSurface(env->screenSurface, point, color);
+
+            if (error >= 0)
+            {
+                point.y += 1;
+                error += 2 * delta.y - 2 * delta.x;
+            }
+            else
+            {
+                error += 2 * delta.y;
+            }
+            point.x ++;
+        }
+    }
+    else
+    {
+        point = (t_vector2i){{{a.x, a.y}}};
+        error = 2 * delta.x - delta.y;
+
+        while (point.y < b.y)
+        {
+            putPixelToScreenSurface(env->screenSurface, point, color);
+
+            if (error >= 0)
+            {
+                point.x += 1;
+                error += 2 * delta.x - 2 * delta.y;
+            }
+            else
+            {
+                error += 2 * delta.x;
+            }
+            point.y ++;
+        }
+
+    }
+
 }
 
 static void	draw_hor(t_sys *env)
@@ -143,7 +207,7 @@ static void	draw_hor(t_sys *env)
 //			printf("Bx: %f, By: %f, Bz: %f\n", b.x, b.y, b.z);
            
 			if (on_screen(a) || on_screen(b))
-				line(env, (t_vector2f){{{a.x, a.y}}}, (t_vector2f){{{b.x, b.y}}}, mkcolor(0, 255, 0));
+				brazehanLine(env, (t_vector2i){{{a.x, a.y}}}, (t_vector2i){{{b.x, b.y}}}, mkcolor(0, 255, 0));
 			i++;
 		}
 		j++;
@@ -185,7 +249,7 @@ int     draw(t_sys *env)
 
 
 			if (on_screen(a) || on_screen(b))
-				line(env, (t_vector2f){{{a.x, a.y}}},  (t_vector2f){{{b.x, b.y}}}, mkcolor(0, 255, 0));
+				brazehanLine(env, (t_vector2i){{{a.x, a.y}}},  (t_vector2i){{{b.x, b.y}}}, mkcolor(0, 255, 0));
 			i++;
 		}
 		j++;
