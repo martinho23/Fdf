@@ -6,12 +6,13 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2020/12/27 16:40:59 by jfarinha         ###   ########.fr        #
+#    Updated: 2024/10/23 21:19:37 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=fdf
-FILES:=main	draw	utils	hook	load	matrix	matrixOp	transform screenBuffer
+FILES:=main	draw	utils	hook	load	matrix	matrixOp	transform \
+	   screenBuffer	line	math	vector
 BINS:=$(FILES:=.o)
 BINS:=$(addprefix srcs/, $(BINS))
 INCD:=-I ./include -I /usr/local/include/ -I /usr/include/X11 -I libft -I minilibx-linux

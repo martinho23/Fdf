@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   screenBuffer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfarinha </var/spool/mail/jfarinha>        +#+  +:+       +#+        */
+/*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:05:14 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/20 16:43:01 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:10:07 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <libft.h>
 #include <mlx.h>
-#include <stdio.h>
 
 int drawBuffer(t_sys *env)
 {
@@ -104,3 +103,13 @@ void clearScreenSurface(t_sys *env, int color)
         iterator.y ++;
     }
 }
+
+void putPixelToScreenSurface(t_screenSurface *screen, t_vector2i point, int color)
+{
+    char *dest;
+
+    dest = (screen->addr + (point.y * screen->lineSize) + ((point.x * screen->pixelSize) / 8));
+    *(unsigned int *)dest = color;
+}
+
+

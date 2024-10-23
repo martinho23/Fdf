@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/22 19:10:10 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:57:49 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,6 @@
 #include <stdio.h>
 #include <fdf.h>
 #include <libft.h>
-
-static  t_vector2f clampPointToScreen(t_sys *sys, t_vector2f point)
-{
-    t_screenSurface *screen = sys->screenSurface;
-
-    //printf("Before clamp Point X:%d, Y:%d\n", (int)(point.x), (int)(point.y));
-    if ((int)point.x < 0)
-        point.x =  0;
-    if ((int)point.x > screen->size.x)
-        point.x = (float)screen->size.x;
-    if ((int)point.y < 0)
-        point.y = 0;
-    if ((int)point.y > screen->size.y)
-        point.y = (float)screen->size.y;
-    //printf("After clamp Point X:%d, Y:%d\n", (int)(point.x), (int)(point.y));
-    
-    return (point);
-}
-
-static inline double mind(double a, double b)
-{
-    return ((a < b) ? a : b);
-}
-
-static inline double maxd(double a, double b)
-{
-    return ((a > b) ? a : b);
-}
-
-static inline int mini(int  a, int b)
-{
-    return ((a < b) ? a : b);
-}
-
-static inline int maxi(int  a, int b)
-{
-    return ((a > b) ? a : b);
-}
-
-static inline void putPixelToScreenSurface(t_screenSurface *screen, t_vector2i point, unsigned int color)
-{
-    char *dest;
-
-    dest = (screen->addr + (point.y * screen->lineSize) + ((point.x * screen->pixelSize) / 8));
-    *(unsigned int *)dest = color;
-}
 
 t_matrix4f	loadProjection(double a, double f, double q)
 {
@@ -81,94 +35,6 @@ t_matrix4f	loadProjection(double a, double f, double q)
 	return (m);
 }
 
-void		line(t_sys *sys, t_vector2f a, t_vector2f b, int color)
-{
-    t_vector2f delta;
-    t_vector2f linePoint;
-    int         step;
-
-    a = clampPointToScreen(sys, a);
-    b = clampPointToScreen(sys, b);
-    
-    delta.x = fabs(b.x - a.x);
-    delta.y = fabs(b.y - a.y);
-
-    step = (delta.x > delta.y) ? delta.x : delta.y;
-
-    delta.x /= step;
-    delta.y /= step;
-
-    linePoint.x = mind(a.x, b.x);
-    linePoint.y = mind(a.y, b.y);
-
-    
-    while (step)
-    {
-        t_vector2i point = {{{(int)linePoint.x, (int)linePoint.y}}};
-       
-        putPixelToScreenSurface(sys->screenSurface, point, color);
-     
-        linePoint.x += delta.x;
-        linePoint.y += delta.y;
-
-        step --;
-    }       
-
-}
-
-void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
-{
-    t_vector2i  delta;
-    t_vector2i  point;
-    int         error;
-
-    delta = (t_vector2i){{{b.x - a.x, b.y - a.y}}};
-    if (delta.x > delta.y)
-    {
-        point = (t_vector2i){{{a.x, a.y}}};
-        error = 2 * delta.y - delta.x;
-
-        while (point.x < b.x)
-        {
-            putPixelToScreenSurface(env->screenSurface, point, color);
-
-            if (error >= 0)
-            {
-                point.y += 1;
-                error += 2 * delta.y - 2 * delta.x;
-            }
-            else
-            {
-                error += 2 * delta.y;
-            }
-            point.x ++;
-        }
-    }
-    else
-    {
-        point = (t_vector2i){{{a.x, a.y}}};
-        error = 2 * delta.x - delta.y;
-
-        while (point.y < b.y)
-        {
-            putPixelToScreenSurface(env->screenSurface, point, color);
-
-            if (error >= 0)
-            {
-                point.x += 1;
-                error += 2 * delta.x - 2 * delta.y;
-            }
-            else
-            {
-                error += 2 * delta.x;
-            }
-            point.y ++;
-        }
-
-    }
-
-}
-
 static void	draw_hor(t_sys *env)
 {
 	t_size		i;
@@ -182,15 +48,12 @@ static void	draw_hor(t_sys *env)
 	translate = newMatrix4();
 	initTranslate(env, translate);
 	matrix4Mul(translate, &env->projection, draw);
-	j = 0;
-    a.x = 0;
-    a.y = 0;
-    a.z = 0;
-    b.x = 0;
-    b.y = 0;
-    b.z = 0;
 
-	while (j < env->size_y)
+	j = 0;
+    a = MAKE_VECTOR4F(0, 0, 0, 0);
+    b = MAKE_VECTOR4F(0, 0, 0, 0);
+   
+    while (j < env->size_y)
 	{
 		i = 0;
 		while (i < env->size_x - 1)
@@ -203,11 +66,8 @@ static void	draw_hor(t_sys *env)
             b.x /= b.w;
             b.y /= b.w;
 
-//            printf("Ax: %f, Ay: %f, Az: %f\n", a.x, a.y, a.z);
-//			printf("Bx: %f, By: %f, Bz: %f\n", b.x, b.y, b.z);
-           
 			if (on_screen(a) || on_screen(b))
-				brazehanLine(env, (t_vector2i){{{a.x, a.y}}}, (t_vector2i){{{b.x, b.y}}}, mkcolor(0, 255, 0));
+				brazehanLine(env, MAKE_VECTOR2I(a.x, a.y), MAKE_VECTOR2I(b.x, b.y), mkcolor(0, 255, 0));
 			i++;
 		}
 		j++;
@@ -242,14 +102,9 @@ int     draw(t_sys *env)
             a.y /= a.w;
             b.x /= b.w;
             b.y /= b.w;
-/*
- *			printf("Ax: %f, Ay: %f, Az: %f\n", a.x, a.y, a.z);
- *			printf("Bx: %f, By: %f, Bz: %f\n", b.x, b.y, b.z);
-*/
 
-
-			if (on_screen(a) || on_screen(b))
-				brazehanLine(env, (t_vector2i){{{a.x, a.y}}},  (t_vector2i){{{b.x, b.y}}}, mkcolor(0, 255, 0));
+    		if (on_screen(a) || on_screen(b))
+				brazehanLine(env, MAKE_VECTOR2I(a.x, a.y),  MAKE_VECTOR2I(b.x, b.y), mkcolor(0, 255, 0));
 			i++;
 		}
 		j++;

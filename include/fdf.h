@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/21 23:20:39 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:29:54 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 # define ZNEAR 0.1f
 # define SWAPSCREENSURFACE(screenSurface) screenSurface = screenSurface->next;
 # define GRIDSCALE 5
+
+/*
+** Make Vector Defines
+*/
+#define MAKE_VECTOR2F(x, y)         (t_vector2f){{{x, y}}}
+#define MAKE_VECTOR2I(x, y)         (t_vector2i){{{x, y}}}
+#define MAKE_VECTOR3F(x, y, z)      (t_vector3f){{{x, y, z}}}
+#define MAKE_VECTOR3I(x, y, z)      (t_vector3i){{{x, y, z}}}
+#define MAKE_VECTOR4F(x, y, z, w)   (t_vector4f){{{x, y, z, w}}}
+#define MAKE_VERTOR4I(x, y, z, w)   (t_vector4i){{{x, y, z, w}}}
 
 /*
 ** Some Key codes
@@ -52,14 +62,14 @@ typedef struct          s_matrix3f
 {
     union
     {   
-        double m[3][3];
+        float m[3][3];
        
         struct
         {
-            double m00, m01, m02, m03;
-            double m10, m11, m12, m13;
-            double m20, m21, m22, m23;
-            double m30, m31, m32, m33;
+            float m00, m01, m02, m03;
+            float m10, m11, m12, m13;
+            float m20, m21, m22, m23;
+            float m30, m31, m32, m33;
 
         };
 
@@ -70,14 +80,14 @@ typedef struct          s_matrix4f
 {
     union
     {   
-        double m[4][4];
+        float m[4][4];
        
         struct
         {
-            double m00, m01, m02, m03;
-            double m10, m11, m12, m13;
-            double m20, m21, m22, m23;
-            double m30, m31, m32, m33;
+            float m00, m01, m02, m03;
+            float m10, m11, m12, m13;
+            float m20, m21, m22, m23;
+            float m30, m31, m32, m33;
 
         };
 
@@ -139,12 +149,12 @@ typedef struct			s_vector2f
 {
     union
     {
-        double m[2];
+        float m[2];
        
         struct 
         {
-            double	x;
-	        double	y;
+            float	x;
+	        float	y;
         };
     };
 }						t_vector2f, *ptr_vector2f;
@@ -153,13 +163,13 @@ typedef struct			s_vector3f
 {
     union
     {
-        double m[3]; 
+        float m[3]; 
 
         struct
         {
-	        double	x;
-	        double	y;
-	        double	z;
+	        float	x;
+	        float	y;
+	        float	z;
         };
     };
 }                       t_vector3f, *ptr_vector3f;
@@ -168,14 +178,14 @@ typedef struct          s_vector4f
 {
     union
     {
-        double m[4];
+        float m[4];
 
         struct
         {
-            double x;
-            double y;
-            double z;
-            double w;
+            float x;
+            float y;
+            float z;
+            float w;
         };
     };
 }                       t_vector4f, *ptr_vector4f;
@@ -204,9 +214,9 @@ typedef struct		s_sys
 	t_size	    	size_x;
 	t_size	    	size_y;
 	t_size	    	size_z;
-	double	    	a;
-	double	    	f;
-	double	    	q;
+	float	    	a;
+	float	    	f;
+	float	    	q;
 	void	    	*mlx;
 	void		    *win;
     t_screenSurface *screenSurface;
@@ -217,7 +227,8 @@ typedef struct		s_sys
 */
 int         		draw(t_sys *env);
 void				line(t_sys *sys, t_vector2f a, t_vector2f b, int color);
-t_matrix4f			loadProjection(double a, double f, double q);
+t_matrix4f			loadProjection(float a, float f, float q);
+
 /*
 ** Utils.c
 */
@@ -250,9 +261,39 @@ void				initRotation(t_sys *env, ptr_matrix4f m);
 /*
 **ScreenBuffer.c
 */
-int                drawBuffer(t_sys *env);
-void                clearScreenSurface(t_sys *env, int color);
+int                 drawBuffer(t_sys *env);
 void                freeScreenSurface(t_sys *env);
+void                clearScreenSurface(t_sys *env, int color);
+void                putPixelToScreenSurface(t_screenSurface *screen, t_vector2i point, int color);
 t_screenSurface     *initScreenSurface(t_sys *env, t_size width, t_size height);
 t_screenSurface     *resizeSceenSurface(t_sys *env, t_size width, t_size height);
+/*
+**Line.c
+*/
+void                ddaLine(t_sys *env, t_vector2f a, t_vector2f b, int color);
+void                brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color);
+/*
+**Math.c
+*/
+int                 mini(int  a, int b);
+int                 maxi(int  a, int b);
+float               minf(float a, float b);
+float               maxf(float a, float b);
+double              mind(double a, double b);
+double              maxd(double a, double b);
+/*
+**Vector.C
+*/
+t_vector2f          clampVector2f(t_vector2f clampValue, t_vector2f min, t_vector2f max);
+t_vector2i          clampVector2i(t_vector2i clampValue, t_vector2i min, t_vector2i max);
+t_vector3f          clampVector3f(t_vector3f clampValue, t_vector3f min, t_vector3f max);
+t_vector3i          clampVector3i(t_vector3i clampValue, t_vector3i min, t_vector3i max);
+t_vector4f          clampVector4f(t_vector4f clampValue, t_vector4f min, t_vector4f max);
+t_vector4i          clampVector4i(t_vector4i clampValue, t_vector4i min, t_vector4i max);
+t_vector2i          divVector2iByScalar(t_vector2i vector, int scalar);
+t_vector2f          divVector2fByScalar(t_vector2f vector, float scalar);
+t_vector3i          divVector3iByScalar(t_vector3i vector, int scalar);
+t_vector3f          divVector3fByScalar(t_vector3f vector, float scalar);
+t_vector4i          divVector4iByScalar(t_vector4i vector, int scalar);
+t_vector4f          divVector4fByScalar(t_vector4f vector, float scalar);
 #endif
