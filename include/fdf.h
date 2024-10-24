@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/23 21:29:54 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/24 07:55:18 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ typedef struct		s_sys
 */
 int         		draw(t_sys *env);
 void				line(t_sys *sys, t_vector2f a, t_vector2f b, int color);
-t_matrix4f			loadProjection(float a, float f, float q);
+t_matrix4f			loadProjection(void);
 
 /*
 ** Utils.c
@@ -245,7 +245,7 @@ void				load(char *map, t_sys *env);
 /*
 **Matrix4
 */
-ptr_matrix4f		newMatrix4(void);
+ptr_matrix4f		newMatrix4f(void);
 void				delMatrix4(ptr_matrix4f m);
 /*
 **MatrixOp.c
@@ -296,4 +296,10 @@ t_vector3i          divVector3iByScalar(t_vector3i vector, int scalar);
 t_vector3f          divVector3fByScalar(t_vector3f vector, float scalar);
 t_vector4i          divVector4iByScalar(t_vector4i vector, int scalar);
 t_vector4f          divVector4fByScalar(t_vector4f vector, float scalar);
+t_vector2i          mulVector2iByScalar(t_vector2i vector, int scalar);
+t_vector2f          mulVector2fByScalar(t_vector2f vector, float scalar);
+t_vector3i          mulVector3iByScalar(t_vector3i vector, int scalar);
+t_vector3f          mulVector3fByScalar(t_vector3f vector, float scalar);
+t_vector4i          mulVector4iByScalar(t_vector4i vector, int scalar);
+t_vector4f          mulVector4fByScalar(t_vector4f vector, float scalar);
 #endif

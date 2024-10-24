@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:33:57 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/09/23 19:55:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/24 07:58:56 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int		keyhook(int keycode, void *p)
 		tmp->translate.x -= 10;
 	if (keycode == XK_RIGHT)
 		tmp->translate.x += 10;
-	if (keycode == XK_KP_ADD)
+	if (keycode == XK_A)
 		tmp->translate.z -= 10;
-	if (keycode == XK_KP_SUB)
+	if (keycode == XK_E)
 		tmp->translate.z += 10;
     draw(tmp);
 	return (0);
