@@ -6,12 +6,13 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 19:56:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/23 21:09:56 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/24 22:54:14 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <math.h>
+#include <stdlib.h>
 
 void		ddaLine(t_sys *sys, t_vector2f a, t_vector2f b, int color)
 {
@@ -49,6 +50,7 @@ void		ddaLine(t_sys *sys, t_vector2f a, t_vector2f b, int color)
 
 void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
 {
+    t_vector2i  sign;
     t_vector2i  delta;
     t_vector2i  point;
     int         error;
@@ -56,7 +58,9 @@ void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
     a = clampVector2i(a, MAKE_VECTOR2I(0, 0), env->screenSurface->size);
     b = clampVector2i(b, MAKE_VECTOR2I(0, 0), env->screenSurface->size);
 
-    delta = (t_vector2i){{{b.x - a.x, b.y - a.y}}};
+    delta = MAKE_VECTOR2I(abs(b.x - a.x), abs(b.y - a.y));
+    sign = MAKE_VECTOR2I((a.x < b.x ? 1 : -1), (a.y < b.y ? 1 : -1));
+
     if (delta.x > delta.y)
     {
         point = (t_vector2i){{{a.x, a.y}}};
@@ -68,12 +72,12 @@ void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
 
             if (error >= 0)
             {
-                point.y += 1;
+                point.y += sign.y;
                 error += 2 * delta.y - 2 * delta.x;
             }
             else
                 error += 2 * delta.y;
-            point.x ++;
+            point.x += sign.x;
         }
     }
 
@@ -88,12 +92,12 @@ void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
 
             if (error >= 0)
             {
-                point.x += 1;
+                point.x += sign.x;
                 error += 2 * delta.x - 2 * delta.y;
             }
             else
                 error += 2 * delta.x;
-            point.y ++;
+            point.y += sign.y;
         }
 
     }

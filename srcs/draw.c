@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/24 19:10:34 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/24 22:54:40 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,20 @@
 
 t_matrix4f	loadProjection(void)
 {
+    /*
     const float       d = 0.5f * WINW * tan(45);
 	const t_matrix4f  m =  {{{{ d, 0,   0,  0 }, \
                             {   0, d,   0,  0 }, \
                             {   0, 0,   1,  1 }, \
                             {   0, 0,   0,  0 }}}};
+    */
+
+    const float a = 0.5f * WINW - 0.5f;
+    const float b = 0.5f * WINH - 0.5f;
+	const t_matrix4f  m =  {{{{ a, 0,   0,  0 }, \
+                            {   0, 1 * b,   0,  0 }, \
+                            {   a, b,   1,   0}, \
+                            {   0, 0,   0,  1 }}}};
 	return (m);
 }
 
@@ -48,10 +57,10 @@ static void	draw_hor(t_sys *env)
 		    a = vec4Mul(*draw, &env->map[j][i]);
 		    b = vec4Mul(*draw, &env->map[j][i + 1]);
 
-            a.x /= a.w;
-            a.y /= a.w;
-            b.x /= b.w;
-            b.y /= b.w;
+            a.x /= a.z;
+            a.y /= a.z;
+            b.x /= b.z;
+            b.y /= b.z;
 
 			brazehanLine(env, MAKE_VECTOR2I(a.x, a.y), MAKE_VECTOR2I(b.x, b.y), mkcolor(0, 255, 0));
 			i++;
@@ -85,10 +94,10 @@ int     draw(t_sys *env)
 			a = vec4Mul(*draw, &env->map[i][j]);
             b = vec4Mul(*draw, &env->map[i + 1][j]);
 
-            a.x /= a.w;
-            a.y /= a.w;
-            b.x /= b.w;
-            b.y /= b.w;
+            a.x /= a.z;
+            a.y /= a.z;
+            b.x /= b.z;
+            b.y /= b.z;
 
 			brazehanLine(env, MAKE_VECTOR2I(a.x, a.y),  MAKE_VECTOR2I(b.x, b.y), mkcolor(0, 255, 0));
 			i++;
