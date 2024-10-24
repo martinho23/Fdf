@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/24 22:54:40 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:19:30 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,37 @@
 
 t_matrix4f	loadProjection(void)
 {
-    /*
-    const float       d = 0.5f * WINW * tan(45);
+    
+/*    const float       d = 0.5f * WINW * tan(45);
 	const t_matrix4f  m =  {{{{ d, 0,   0,  0 }, \
                             {   0, d,   0,  0 }, \
                             {   0, 0,   1,  1 }, \
-                            {   0, 0,   0,  0 }}}};
-    */
+                            {   0, 0,   0,  0 }}}}; */
+    
 
     const float a = 0.5f * WINW - 0.5f;
     const float b = 0.5f * WINH - 0.5f;
 	const t_matrix4f  m =  {{{{ a, 0,   0,  0 }, \
                             {   0, 1 * b,   0,  0 }, \
                             {   a, b,   1,   0}, \
-                            {   0, 0,   0,  1 }}}};
+                {   0, 0,   0,  1 }}}};
 	return (m);
 }
 
 static void	draw_hor(t_sys *env)
 {
-	t_size		i;
-	t_size		j;
-	t_vector4f	a;
-	t_vector4f	b;
+	t_size		    i;
+	t_size		    j;
+	t_vector4f	    a;
+	t_vector4f	    b;
 	ptr_matrix4f	draw;
 	ptr_matrix4f	translate;
 
+/*    t_matrix4f rotationY = {{{{cos(angle),    0,  sin(angle), 0},\
+                                    {0,             1,  0,          0},\
+                                    {-1*sin(angle), 0,  cos(angle), 0},\
+                                    {0,             0,  0,          1}}}}; */
+    
 	draw = newMatrix4f();
 	translate = newMatrix4f();
 	initTranslate(env, translate);

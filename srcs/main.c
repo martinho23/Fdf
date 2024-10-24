@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/24 18:13:33 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:04:43 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int main(int ac, char **av) {
   env.q = ZFAR / (ZFAR - ZNEAR);
   printf("a: %f, f: %f q: %f\n", env.a, env.f, env.q);
   env.projection = loadProjection();
-  env.translate.x = (15 / WINW) * env.size_x;
-  env.translate.y = (15 / WINH) * env.size_y;
-  env.translate.z = ((float)env.size_y * 10.f);
+  env.translate.x = -0.5f * env.size_x * GRIDSCALE;
+  env.translate.y = -0.5f * env.size_y * GRIDSCALE;
+  env.translate.z = (env.size_z * 5);
   env.scale.x = 1;
   env.scale.y = 1;
   env.scale.z = 1;

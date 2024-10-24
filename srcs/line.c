@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 19:56:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/24 22:54:14 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/24 23:39:50 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
 
     delta = MAKE_VECTOR2I(abs(b.x - a.x), abs(b.y - a.y));
     sign = MAKE_VECTOR2I((a.x < b.x ? 1 : -1), (a.y < b.y ? 1 : -1));
+    point = MAKE_VECTOR2I(a.x, a.y);
 
     if (delta.x > delta.y)
     {
-        point = (t_vector2i){{{a.x, a.y}}};
         error = 2 * delta.y - delta.x;
 
-        while (point.x < b.x)
+        while (point.x < b.x || point.y < b.y)
         {
             putPixelToScreenSurface(env->screenSurface, point, color);
 
@@ -80,13 +80,11 @@ void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
             point.x += sign.x;
         }
     }
-
     else
     {
-        point = (t_vector2i){{{a.x, a.y}}};
         error = 2 * delta.x - delta.y;
 
-        while (point.y < b.y)
+        while (point.y < b.y  || point.x < b.x)
         {
             putPixelToScreenSurface(env->screenSurface, point, color);
 
@@ -99,8 +97,6 @@ void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
                 error += 2 * delta.x;
             point.y += sign.y;
         }
-
     }
-
 }
 
