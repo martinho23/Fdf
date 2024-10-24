@@ -6,13 +6,12 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:33:57 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/24 07:58:56 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:49:17 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <fdf.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 int		keyhook(int keycode, void *p)
