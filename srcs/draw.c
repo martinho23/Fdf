@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/25 00:19:30 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:09:14 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include <math.h>
 #include <fdf.h>
 #include <libft.h>
+
+#define MAKEROTY(angle)  {{{{cos(angle),    0,  sin(angle), 0},\
+                            {0,             1,  0,          0},\
+                            {sin(-1 * angle), 0,  cos(angle), 0},\
+                            {0,             0,  0,          1}}}}
+    
 
 t_matrix4f	loadProjection(void)
 {
@@ -30,7 +36,7 @@ t_matrix4f	loadProjection(void)
 	const t_matrix4f  m =  {{{{ a, 0,   0,  0 }, \
                             {   0, 1 * b,   0,  0 }, \
                             {   a, b,   1,   0}, \
-                {   0, 0,   0,  1 }}}};
+                            {   0, 0,   0,  1 }}}};
 	return (m);
 }
 
@@ -42,16 +48,12 @@ static void	draw_hor(t_sys *env)
 	t_vector4f	    b;
 	ptr_matrix4f	draw;
 	ptr_matrix4f	translate;
+    t_matrix4f      roty = MAKEROTY(env->angle);
 
-/*    t_matrix4f rotationY = {{{{cos(angle),    0,  sin(angle), 0},\
-                                    {0,             1,  0,          0},\
-                                    {-1*sin(angle), 0,  cos(angle), 0},\
-                                    {0,             0,  0,          1}}}}; */
-    
-	draw = newMatrix4f();
+    draw = newMatrix4f();
 	translate = newMatrix4f();
 	initTranslate(env, translate);
-	matrix4Mul(translate, &env->projection, draw);
+	matrix4Mul(&roty, &env->projection, draw);
 
 	j = 0;
     while (j < env->size_y)
@@ -83,11 +85,13 @@ int     draw(t_sys *env)
 	t_vector4f			b;
 	ptr_matrix4f		draw;
 	ptr_matrix4f		translate;
+    t_matrix4f          roty = MAKEROTY(env->angle);
 
 	draw = newMatrix4f();
 	translate = newMatrix4f();
+    env->angle += 5;
 	initTranslate(env, translate);
-	matrix4Mul(translate, &env->projection, draw);
+	matrix4Mul(&roty, &env->projection, draw);
 	clearScreenSurface(env, 0x18181818);
 
     j = 0;
