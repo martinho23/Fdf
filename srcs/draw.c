@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/26 00:33:05 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:12:13 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,26 @@
                             {0,             1,  0,          0},\
                             {-1*sin(angle), 0,  cos(angle), 0},\
                             {0,             0,  0,          1}}}}
-    
+
+#define MAKEROTX(angle)  {{{{1, 0,          0,              0},\
+                            {0, cos(angle), -1*sin(angle),  0},\
+                            {0, sin(angle), cos(angle),     0},\
+                            {0, 0,          0,              1}}}}
+
+
+#define MAKEROT0(angle)  {{{{1, 0, 0, 0},\
+                            {0, 1, 0, 0},\
+                            {0, 0, 1, 0},\
+                            {0, 0, 0, 1}}}}
+
+
+#define MAKEZEROMATRIX  {{{{0, 0, 0, 0},\
+                            {0, 0, 0, 0},\
+                            {0, 0, 0, 0},\
+                            {0, 0, 0, 0}}}}
+
+
+   
 
 t_matrix4f	loadProjection(void)
 {
@@ -33,10 +52,10 @@ t_matrix4f	loadProjection(void)
 
     const float a = 0.5f * WINW - 0.5f;
     const float b = 0.5f * WINH - 0.5f;
-	const t_matrix4f  m =  {{{{ a, 0,   0,  0 }, \
-                            {   0, 1 * b,   0,  0 }, \
-                            {   a, b,   1,   0}, \
-                            {   0, 0,   0,  1 }}}};
+	const t_matrix4f  m =  {{{{ a, 0,       0,  0}, \
+                            {   0, -1 *  b,  0,  0}, \
+                            {   a, b,       1,  1}, \
+                            {   0, 0,       0,  0}}}};
 	return (m);
 }
 
@@ -46,16 +65,14 @@ static void	draw_hor(t_sys *env)
 	t_size		    j;
 	t_vector4f	    a;
 	t_vector4f	    b;
-	ptr_matrix4f	draw;
-	ptr_matrix4f	translate;
-    t_matrix4f      roty = MAKEROTY(env->angle);
-    t_matrix4f      tmp;
+    t_matrix4f      draw = MAKEZEROMATRIX;
+    t_matrix4f      translate = MAKEZEROMATRIX;
+    t_matrix4f      roty = MAKEROTX(env->angle);
+    t_matrix4f      tmp = MAKEZEROMATRIX;
 
-    draw = newMatrix4f();
-	translate = newMatrix4f();
-	initTranslate(env, translate);
-    matrix4Mul(translate, &roty, &tmp);
-	matrix4Mul(&tmp, &env->projection, draw);
+	initTranslate(env, &translate);
+    matrix4Mul(&roty, &translate, &tmp);
+	matrix4Mul(&tmp, &env->projection, &draw);
 
 	j = 0;
     while (j < env->size_y)
@@ -63,8 +80,8 @@ static void	draw_hor(t_sys *env)
 		i = 0;
 		while (i < env->size_x - 1)
 		{
-		    a = vec4Mul(*draw, &env->map[j][i]);
-		    b = vec4Mul(*draw, &env->map[j][i + 1]);
+		    a = vec4Mul(draw, &env->map[j][i]);
+		    b = vec4Mul(draw, &env->map[j][i + 1]);
 
             a.x /= a.z;
             a.y /= a.z;
@@ -76,7 +93,6 @@ static void	draw_hor(t_sys *env)
 		}
 		j++;
 	}
-	delMatrix4(draw);
 }
 
 int     draw(t_sys *env)
@@ -85,25 +101,25 @@ int     draw(t_sys *env)
 	t_size				j;
 	t_vector4f			a;
 	t_vector4f			b;
-	ptr_matrix4f		draw;
-	ptr_matrix4f		translate;
-    t_matrix4f          roty = MAKEROTY(env->angle);
+    t_matrix4f          draw = MAKEZEROMATRIX;
+    t_matrix4f          translate = MAKEZEROMATRIX;
+    t_matrix4f          roty = MAKEROTX(env->angle);
+    t_matrix4f          tmp = MAKEZEROMATRIX;
 
-	draw = newMatrix4f();
-	translate = newMatrix4f();
-    env->angle = DEGREETORAD(5);
-	initTranslate(env, translate);
-	matrix4Mul(&roty, &env->projection, draw);
+    env->angle += DEGREETORAD(5);
+	initTranslate(env, &translate);
+    matrix4Mul(&roty, &translate,&tmp);
+	matrix4Mul(&tmp, &env->projection, &draw);
 	clearScreenSurface(env, 0x18181818);
 
     j = 0;
-	while (j < env->size_x && draw)
+	while (j < env->size_x)
 	{
 		i = 0;
 		while (i < env->size_y - 1)
 		{
-			a = vec4Mul(*draw, &env->map[i][j]);
-            b = vec4Mul(*draw, &env->map[i + 1][j]);
+			a = vec4Mul(draw, &env->map[i][j]);
+            b = vec4Mul(draw, &env->map[i + 1][j]);
 
             a.x /= a.z;
             a.y /= a.z;
@@ -116,7 +132,6 @@ int     draw(t_sys *env)
 		j++;
 	}
 	draw_hor(env);
-	delMatrix4(draw);
     drawBuffer(env);
     return (0);
 }
