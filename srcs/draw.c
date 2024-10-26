@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/25 23:09:14 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:33:05 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #define MAKEROTY(angle)  {{{{cos(angle),    0,  sin(angle), 0},\
                             {0,             1,  0,          0},\
-                            {sin(-1 * angle), 0,  cos(angle), 0},\
+                            {-1*sin(angle), 0,  cos(angle), 0},\
                             {0,             0,  0,          1}}}}
     
 
@@ -49,11 +49,13 @@ static void	draw_hor(t_sys *env)
 	ptr_matrix4f	draw;
 	ptr_matrix4f	translate;
     t_matrix4f      roty = MAKEROTY(env->angle);
+    t_matrix4f      tmp;
 
     draw = newMatrix4f();
 	translate = newMatrix4f();
 	initTranslate(env, translate);
-	matrix4Mul(&roty, &env->projection, draw);
+    matrix4Mul(translate, &roty, &tmp);
+	matrix4Mul(&tmp, &env->projection, draw);
 
 	j = 0;
     while (j < env->size_y)
@@ -89,7 +91,7 @@ int     draw(t_sys *env)
 
 	draw = newMatrix4f();
 	translate = newMatrix4f();
-    env->angle += 5;
+    env->angle = DEGREETORAD(5);
 	initTranslate(env, translate);
 	matrix4Mul(&roty, &env->projection, draw);
 	clearScreenSurface(env, 0x18181818);

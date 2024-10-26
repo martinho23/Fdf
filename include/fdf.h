@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/25 23:05:41 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:27:49 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # define STDW 500.0f
 # define STDH 500.0f
 # define ZNEAR 0.1f
-# define SWAPSCREENSURFACE(screenSurface) screenSurface = screenSurface->next;
 # define GRIDSCALE 5
+# define PI 3.14159265359
+# define DEGREETORAD(angle) (angle * PI) / 180;
+# define SWAPSCREENSURFACE(screenSurface) screenSurface = screenSurface->next;
 
 /*
 ** Make Vector Defines
