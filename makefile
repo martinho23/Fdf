@@ -6,7 +6,7 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2024/10/27 16:58:16 by jfarinha         ###   ########.fr        #
+#    Updated: 2024/10/27 23:14:47 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBD:=-L /usr/local/lib/ -L ./libft -L /usr/lib -L minilibx-linux
 LIBS:=-lmlx -lXext -lX11 -lft -lm
 FLAG:=-Wall -Wextra -Werror -g
 LIBFT:= ./libft/libft.a
-LIBX:= ./minilibx-linux/mlx
+LIBX:= ./MLX42/build/libmlx42.a
 
 .PHONY:all clean fclean re fullre libclean linux run
 
@@ -36,7 +36,10 @@ $(LIBFT):
 	make -C ./libft
 
 $(LIBX):
-	make -C ./minilibx-linux
+	cd MLX42
+	cmake -B build
+	cmake --build build --parallel --config Debug
+	cd ../
 
 clean:
 	rm -f $(BINS)
@@ -46,6 +49,7 @@ fclean: clean
 
 libclean:
 	rm -f $(LIBFT)
+	rm -f $(LIBX)
 
 re: fclean all
 
