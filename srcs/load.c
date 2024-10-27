@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:52:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/20 16:43:27 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:49:37 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ env->size_y)) == NULL, "Malloc error: Not enought memory!");
 		i++;
 	}
 
+    normalise(env);
 	printf("X: %f ", env->map[0]->x);
 	printf("Y: %f ", env->map[0]->y);
 	printf("Z: %f ", env->map[0]->z);

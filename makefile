@@ -6,7 +6,7 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2024/10/23 21:19:37 by jfarinha         ###   ########.fr        #
+#    Updated: 2024/10/27 16:58:16 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BINS:=$(addprefix srcs/, $(BINS))
 INCD:=-I ./include -I /usr/local/include/ -I /usr/include/X11 -I libft -I minilibx-linux
 LIBD:=-L /usr/local/lib/ -L ./libft -L /usr/lib -L minilibx-linux
 LIBS:=-lmlx -lXext -lX11 -lft -lm
-FLAG:=-Wall -Wextra -Werror -ggdb
+FLAG:=-Wall -Wextra -Werror -g
 LIBFT:= ./libft/libft.a
 LIBX:= ./minilibx-linux/mlx
 

@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/26 00:27:49 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:24:36 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,7 @@ void				delMatrix4(ptr_matrix4f m);
 */
 void				matrix4Mul(ptr_matrix4f a, ptr_matrix4f b, ptr_matrix4f buff);
 t_vector4f			vec4Mul(t_matrix4f mat, ptr_vector4f vec);
+t_vector4f	        vec4MulHomogenous(t_matrix4f mat, ptr_vector4f vec);
 /*
 **Transform.c
 */

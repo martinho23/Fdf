@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 19:05:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/23 21:10:37 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:26:47 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,25 @@ t_vector4f	vec4Mul(t_matrix4f mat, ptr_vector4f vec)
 			vec->z * mat.m[2][2] + mat.m[3][2];
 	tmp.w =	vec->x * mat.m[0][3] + vec->y * mat.m[1][3] + \
             vec->z * mat.m[2][3] + mat.m[3][3];
+
+	return (tmp);
+}
+
+t_vector4f	vec4MulHomogenous(t_matrix4f mat, ptr_vector4f vec)
+{
+	t_vector4f	tmp;
+    tmp.x = vec->x * mat.m[0][0] + vec->y * mat.m[1][0] + \
+			vec->z * mat.m[2][0] + mat.m[3][0];
+	tmp.y = vec->x * mat.m[0][1] + vec->y * mat.m[1][1] + \
+			vec->z * mat.m[2][1] + mat.m[3][1];
+	tmp.z = vec->x * mat.m[0][2] + vec->y * mat.m[1][2] + \
+			vec->z * mat.m[2][2] + mat.m[3][2];
+	tmp.w =	vec->x * mat.m[0][3] + vec->y * mat.m[1][3] + \
+            vec->z * mat.m[2][3] + mat.m[3][3];
+
+    tmp.x /= tmp.w;
+    tmp.y /= tmp.w;
+    tmp.z /= tmp.w;
 
 	return (tmp);
 }
