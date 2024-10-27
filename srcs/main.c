@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/25 23:51:17 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/27 01:01:43 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include <libft.h>
 #include <mlx.h>
 #include <stdio.h>
+
+int printhi(void)
+{
+    printf("Hello World!");
+    return(1);
+}
 
 int main(int ac, char **av) {
   t_sys env;
@@ -36,7 +42,7 @@ int main(int ac, char **av) {
   env.screenSurface = initScreenSurface(&env, WINW, WINH);
   mlx_expose_hook(env.win, draw, &env);
   mlx_key_hook(env.win, keyhook, &env);
-  mlx_loop_hook(env.win, draw, &env);
+  mlx_loop_hook(env.mlx, draw, &env);
   mlx_loop(env.mlx);
   return (0);
 }
