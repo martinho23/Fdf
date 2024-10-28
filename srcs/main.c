@@ -6,13 +6,12 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/27 21:33:11 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:17:02 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <libft.h>
-#include <mlx.h>
 #include <stdio.h>
 
 int printhi(void)
@@ -25,8 +24,7 @@ int main(int ac, char **av) {
   t_sys env;
 
   ft_thrower(ac != 2, "Usage: You must specify a map file to load!");
-  env.mlx = mlx_init();
-  env.win = mlx_new_window(env.mlx, WINW, WINH, "FDF");
+  env.mlx = mlx_init(WINW, WINH, WINNAME, true);
   load(av[1], &env);
   ft_thrower(env.size_x <= 0 || env.size_y <= 0, "Map error: wrong format!");
   env.projection = loadProjection();
@@ -38,8 +36,8 @@ int main(int ac, char **av) {
   env.scale.z = 1;
   printf("print done!\n");
   env.screenSurface = initScreenSurface(&env, WINW, WINH);
-  mlx_expose_hook(env.win, draw, &env);
-  mlx_key_hook(env.win, keyhook, &env);
+  mlx_expose_hook(env.mlx, draw, &env);
+  mlx_key_hook(env.mlx, keyhook, &env);
   mlx_loop_hook(env.mlx, draw, &env);
   mlx_loop(env.mlx);
   return (0);

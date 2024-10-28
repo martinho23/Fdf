@@ -6,7 +6,7 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2024/10/27 23:14:47 by jfarinha         ###   ########.fr        #
+#    Updated: 2024/10/28 21:53:49 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,8 @@ $(LIBFT):
 	make -C ./libft
 
 $(LIBX):
-	cd MLX42
-	cmake -B build
-	cmake --build build --parallel --config Debug
-	cd ../
+	cmake -S MLX42 -B build
+	cmake --build MLX42/build --parallel --config Debug
 
 clean:
 	rm -f $(BINS)

@@ -6,16 +6,20 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/27 22:24:36 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:23:22 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
+#include <MLX42/MLX42.h>
+
 # define FOV 90.0f
 # define ZFAR 1000.0f
 # define WINW 1440.0f
 # define WINH 720.0f
+# define WINNAME "Fdf"
 # define STDW 500.0f
 # define STDH 500.0f
 # define ZNEAR 0.1f
@@ -208,6 +212,7 @@ typedef struct          s_screenSurface
 */
 typedef struct		s_sys
 {
+	mlx_t	    	*mlx;
 	t_vector4f      **map;
 	t_vector3f  	translate;
 	t_vector3f  	scale;
@@ -220,15 +225,13 @@ typedef struct		s_sys
 	float	    	f;
 	float	    	q;
     float           angle;
-	void	    	*mlx;
-	void		    *win;
     t_screenSurface *screenSurface;
 }			    	t_sys;
 
 /*
 ** Draw.c
 */
-int         		draw(t_sys *env);
+void         		draw(void *env);
 void				line(t_sys *sys, t_vector2f a, t_vector2f b, int color);
 t_matrix4f			loadProjection(void);
 

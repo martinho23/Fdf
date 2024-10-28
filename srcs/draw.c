@@ -6,11 +6,10 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/27 22:24:50 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:25:18 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include <fdf_matrix.h>
 #include <fdf.h>
 #include <libft.h>
@@ -26,8 +25,9 @@ t_matrix4f	loadProjection(void)
 	return (m);
 }
 
-int     draw(t_sys *env)
+void     draw(void *env)
 {
+    env = (t_sys *)env;
 	t_size				i;
 	t_size				j;
 	t_vector4f			a;
@@ -39,7 +39,6 @@ int     draw(t_sys *env)
     t_matrix4f          rotx = MATRIX_ROT_X(env->angle);
     t_matrix4f          tmp = MATRIX_ZERO;
 
-    (void)tmp;
     env->angle = DEGREETORAD(155.f);
 	initTranslate(env, &translate);
     matrix4Mul(&rotx, &translate, &tmp);
@@ -65,7 +64,5 @@ int     draw(t_sys *env)
 		}
 		j++;
 	}
-	//draw_hor(env);
     drawBuffer(env);
-    return (0);
 }
