@@ -6,39 +6,37 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:33:57 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/27 18:32:49 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:13:29 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include <MLX42/MLX42.h>
 #include <fdf.h>
 #include <stdlib.h>
 
-int		keyhook(int keycode, void *p)
+void	keyhook(mlx_key_data_t key, void *p)
 {
 	t_sys *tmp;
 	tmp = (t_sys *)p;
-    mlx_do_key_autorepeaton(tmp->mlx);
-	if (keycode == XK_ESC)
+	if (key.key == MLX_KEY_ESCAPE)
 		exit(0);
-	if (keycode == XK_UP)
+	if (key.key == XK_UP)
 		tmp->translate.y -= 10;
-	if (keycode == XK_DOWN)
+	if (key.key == XK_DOWN)
 		tmp->translate.y += 10;
-	if (keycode == XK_LEFT)
+	if (key.key == XK_LEFT)
 		tmp->translate.x -= 10;
-	if (keycode == XK_RIGHT)
+	if (key.key == XK_RIGHT)
 		tmp->translate.x += 10;
-	if (keycode == XK_A)
+	if (key.key == XK_A)
 		tmp->translate.z -= 10;
-	if (keycode == XK_E)
+	if (key.key == XK_E)
 		tmp->translate.z += 10;
-	return (0);
 }
 
-int		mousehook(int keycode, int x, int y, void *p)
+int		mousehook(int key, int x, int y, void *p)
 {
 	((t_vector2i *)p)->x = x;
 	((t_vector2i *)p)->y = y;
-	return (keycode);
+	return (key);
 }

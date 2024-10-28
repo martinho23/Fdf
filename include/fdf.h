@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/28 19:23:22 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:10:23 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@
 
 typedef unsigned char	t_uchar;
 typedef unsigned int	t_size;
-typedef void            *t_image;
 
 /*
 **  Matrix type definitions
@@ -196,17 +195,6 @@ typedef struct          s_vector4f
     };
 }                       t_vector4f, *ptr_vector4f;
 
-typedef struct          s_screenSurface
-{
-    t_image                 image;
-    t_vector2i              size;
-    int                     pixelSize;
-    int                     lineSize;
-    int                     indian;
-    char *                  addr;
-    struct s_screenSurface  *next;
-}                       t_screenSurface;
-
 /*
 **  System type definitions
 */
@@ -225,7 +213,7 @@ typedef struct		s_sys
 	float	    	f;
 	float	    	q;
     float           angle;
-    t_screenSurface *screenSurface;
+    mlx_image_t     *screenSurface;
 }			    	t_sys;
 
 /*
@@ -243,7 +231,7 @@ int					mkcolor(t_uchar r, t_uchar g, t_uchar b);
 /*
 ** Hook.c
 */
-int					keyhook(int keycode, void *p);
+void				keyhook(mlx_key_data_t key, void *p);
 /*
 **Load.c
 */
@@ -271,9 +259,9 @@ void				initRotation(t_sys *env, ptr_matrix4f m);
 int                 drawBuffer(t_sys *env);
 void                freeScreenSurface(t_sys *env);
 void                clearScreenSurface(t_sys *env, int color);
-void                putPixelToScreenSurface(t_screenSurface *screen, t_vector2i point, int color);
-t_screenSurface     *initScreenSurface(t_sys *env, t_size width, t_size height);
-t_screenSurface     *resizeSceenSurface(t_sys *env, t_size width, t_size height);
+void                putPixelToScreenSurface(mlx_image_t *screen, t_vector2i point, int color);
+void                initScreenSurface(t_sys *env, t_size width, t_size height);
+void                resizeSceenSurface(int32_t width, int32_t height, void *sys);
 /*
 **Line.c
 */

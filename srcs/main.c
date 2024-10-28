@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/28 19:17:02 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:41:34 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int main(int ac, char **av) {
 
   ft_thrower(ac != 2, "Usage: You must specify a map file to load!");
   env.mlx = mlx_init(WINW, WINH, WINNAME, true);
+  ft_thrower(!env.mlx, "Couldn't initialise MLX");
   load(av[1], &env);
   ft_thrower(env.size_x <= 0 || env.size_y <= 0, "Map error: wrong format!");
   env.projection = loadProjection();
@@ -36,7 +37,6 @@ int main(int ac, char **av) {
   env.scale.z = 1;
   printf("print done!\n");
   env.screenSurface = initScreenSurface(&env, WINW, WINH);
-  mlx_expose_hook(env.mlx, draw, &env);
   mlx_key_hook(env.mlx, keyhook, &env);
   mlx_loop_hook(env.mlx, draw, &env);
   mlx_loop(env.mlx);

@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/28 19:25:18 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:05:48 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_matrix4f	loadProjection(void)
 	return (m);
 }
 
-void     draw(void *env)
+void     draw(void *sys)
 {
-    env = (t_sys *)env;
+    t_sys *env = (t_sys *)sys;
 	t_size				i;
 	t_size				j;
 	t_vector4f			a;

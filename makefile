@@ -6,7 +6,7 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2024/10/28 21:53:49 by jfarinha         ###   ########.fr        #
+#    Updated: 2024/10/28 22:00:17 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ FILES:=main	draw	utils	hook	load	matrix	matrixOp	transform \
 	   screenBuffer	line	math	vector
 BINS:=$(FILES:=.o)
 BINS:=$(addprefix srcs/, $(BINS))
-INCD:=-I ./include -I /usr/local/include/ -I /usr/include/X11 -I libft -I minilibx-linux
-LIBD:=-L /usr/local/lib/ -L ./libft -L /usr/lib -L minilibx-linux
+INCD:=-I ./include -I /usr/local/include/ -I /usr/include/X11 -I libft -I MLX42/include
+LIBD:=-L /usr/local/lib/ -L ./libft -L /usr/lib -L ./MLX42/build
 LIBS:=-lmlx -lXext -lX11 -lft -lm
 FLAG:=-Wall -Wextra -Werror -g
 LIBFT:= ./libft/libft.a

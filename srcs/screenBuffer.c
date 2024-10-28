@@ -6,96 +6,66 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:05:14 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/23 21:10:07 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:26:40 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <libft.h>
-#include <mlx.h>
+#include <MLX42/MLX42.h>
 
 int drawBuffer(t_sys *env)
 {
-    mlx_put_image_to_window(env->mlx, env->win, env->screenSurface->image, 0, 0);
-    SWAPSCREENSURFACE(env->screenSurface);
+    if(mlx_image_to_window(env->mlx, env->screenSurface, 0, 0) < 0)
+        ft_thrower(true, "Couldn't place image to the window\n");
 
     return (0);
 }
 
-t_screenSurface *initScreenSurface(t_sys *env, t_size width, t_size height) {
-    t_screenSurface *surface1 = malloc(sizeof(t_screenSurface));
-    t_screenSurface *surface2 = malloc(sizeof(t_screenSurface));
+void initScreenSurface(t_sys *env, t_size width, t_size height) {
 
-    ft_thrower(!env->mlx, "Can't create surface because MLX pointer is NULL");
-    ft_thrower(!surface1,
-             "Couldn't malloc enought space to allocate surface 1\n");
-    ft_thrower(!surface2,
-             "Couldn't malloc enought space to allocate surface 2\n");
+    ft_thrower(!env->mlx, "Can't create surface because MLX pointer is NULL\n");
 
-    surface1->image = (t_image)mlx_new_image(env->mlx, width, height);
-    surface1->next = surface2;
-    surface2->image = (t_image)mlx_new_image(env->mlx, width, height);
-    surface2->next = surface1;
 
-    ft_thrower(!surface1->image,
-             "mlx couldn't allocate enought space for the surface1");
-    ft_thrower(!surface2->image,
-             "mlx couldn't allocate enought space for the surface2");
+    env->screenSurface = mlx_new_image(env->mlx, width, height);
+    ft_thrower(!env->screenSurface, "mlx couldn't create Screen, Surface\n");
 
-    surface1->size.x = width;
-    surface1->size.y = height;
-    surface2->size.x = width;
-    surface2->size.y = height;
-
-    surface1->addr = mlx_get_data_addr(surface1->image, &surface1->pixelSize, \
-            &surface1->lineSize, &surface1->indian);
-    surface2->addr = mlx_get_data_addr(surface2->image, &surface2->pixelSize, \
-            &surface2->lineSize, &surface2->indian);
-
-    return (surface1);
 }
 
-t_screenSurface *resizeScreenSurface(t_sys *env, t_size width, t_size height) {
+void resizeScreenSurface(int32_t width, int32_t height, void *sys) {
+    t_sys *env = (t_sys *)sys;
     freeScreenSurface(env);
-    t_screenSurface *tmp = initScreenSurface(env, width, height);
+    initScreenSurface(env, width, height);
 
-  return (tmp);
 }
+
 void freeScreenSurface(t_sys *env) 
 {
-  t_screenSurface *screenSurface1 = env->screenSurface;
-  t_screenSurface *screenSurface2 = env->screenSurface->next;
+  mlx_image_t *screenSurface = env->screenSurface;
 
-  if (screenSurface1->image)
-    mlx_destroy_image(env->mlx, screenSurface1->image);
-  if (screenSurface2->image)
-    mlx_destroy_image(env->mlx, screenSurface2->image);
-  if (screenSurface1)
-    free(screenSurface1);
-  if (screenSurface2)
-    free(screenSurface2);
+  if (screenSurface)
+    mlx_delete_image(env->mlx, screenSurface);
 }
 
 void clearScreenSurface(t_sys *env, int color)
 {
-    t_screenSurface *screen = env->screenSurface;
+    mlx_image_t *screen = env->screenSurface;
     t_vector2i iterator;
-    char *dest;
+    uint8_t *dest;
 
 
     long int fillColor = color;
     fillColor = fillColor << 32 | color;
     iterator.y = 0;
-    (void)color;
-    while(iterator.y < screen->size.y)
+    while(iterator.y < screen->height)
     {
-        int line = iterator.y * screen->lineSize;
+        int line = iterator.y;
         iterator.x = 0;
 
-        while(iterator.x < screen->size.x/2)
+        while(iterator.x < screen->width / 2)
         {
             
-            dest = screen->addr + (line + (iterator.x * (screen->pixelSize / 8) * 2));
+            dest = screen->pixels + (line + (iterator.x * (sizeof(uint32_t) * 2)));
             *(long int*)dest = fillColor;
             iterator.x ++;
         }
@@ -104,11 +74,11 @@ void clearScreenSurface(t_sys *env, int color)
     }
 }
 
-void putPixelToScreenSurface(t_screenSurface *screen, t_vector2i point, int color)
+void putPixelToScreenSurface(mlx_image_t *screen, t_vector2i point, int color)
 {
-    char *dest;
+    uint8_t *dest;
 
-    dest = (screen->addr + (point.y * screen->lineSize) + ((point.x * screen->pixelSize) / 8));
+    dest = (screen->pixels + (point.y * + (point.x + sizeof(uint32_t))));
     *(unsigned int *)dest = color;
 }
 
