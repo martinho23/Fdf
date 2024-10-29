@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/29 21:28:06 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:47:06 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 # define FOV 90.0f
 # define ZFAR 1000.0f
-# define WINW 1440.0f
-# define WINH 720.0f
+# define WINW 800
+# define WINH 600
 # define WINNAME "Fdf"
 # define STDW 500.0f
 # define STDH 500.0f
@@ -226,7 +226,7 @@ typedef struct		s_sys
 	float	    	f;
 	float	    	q;
     float           angle;
-    mlx_image_t     screenSurface;
+    mlx_image_t     *screenSurface;
 }			    	t_sys;
 
 /*
@@ -263,7 +263,7 @@ t_vector4f	        vec4MulHomogenous(t_matrix4f mat, ptr_vector4f vec);
 /*
 **Transform.c
 */
-void				initTranslate(t_sys *env, ptr_matrix4f m);
+void    		    initTranslate(t_sys *env, ptr_matrix4f m);
 void				initScale(t_sys *env, ptr_matrix4f m);
 void				initRotation(t_sys *env, ptr_matrix4f m);
 /*
@@ -273,7 +273,7 @@ int                 drawBuffer(t_sys *env);
 void                freeScreenSurface(t_sys *env);
 void                clearScreenSurface(t_sys *env, int color);
 void                putPixelToScreenSurface(mlx_image_t *screen, t_vector2i point, int color);
-void                initScreenSurface(t_sys *env, t_size width, t_size height);
+mlx_image_t         *initScreenSurface(t_sys *env, t_size width, t_size height);
 void                resizeSceenSurface(int32_t width, int32_t height, void *sys);
 /*
 **Line.c

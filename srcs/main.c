@@ -6,21 +6,16 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/29 21:28:24 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:45:55 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <libft.h>
+#include <memory.h>
 #include <stdio.h>
 
 # define BPP sizeof(int32_t)
-
-int printhi(void)
-{
-    printf("Hello World!");
-    return(1);
-}
 
 int main(int ac, char **av) {
   t_sys env;
@@ -37,13 +32,15 @@ int main(int ac, char **av) {
   env.scale.x = 1;
   env.scale.y = 1;
   env.scale.z = 1;
-  printf("print done!\n");
-  initScreenSurface(&env, WINW, WINH);
-  ft_memset(env.screenSurface.pixels, 255, env.screenSurface.height * env.screenSurface.width * BPP);
- // drawBuffer(&env);
+  env.screenSurface = initScreenSurface(&env, WINW, WINH);
+  //memset(env.screenSurface->pixels, 0XFF0000FF, env.screenSurface->height * env.screenSurface->width * BPP);
+  //draw(&env);
+  clearScreenSurface(&env, 0xFF00FF00);
+  drawBuffer(&env);
   mlx_key_hook(env.mlx, keyhook, &env);
-   //mlx_loop_hook(env.mlx, draw, &env);
-
+  //mlx_loop_hook(env.mlx, draw, &env);
+  printf("print done!\n");
   mlx_loop(env.mlx);
+
   return (0);
 }
