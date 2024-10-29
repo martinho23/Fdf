@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/28 22:05:48 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:05:04 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void     draw(void *sys)
 	initTranslate(env, &translate);
     matrix4Mul(&rotx, &translate, &tmp);
 	matrix4Mul(&tmp, &env->projection, &draw);
-	clearScreenSurface(env, 0x18181818);
+//	clearScreenSurface(env, 0x18181818);
 
     j = 0;
     while (j < env->size_x - 1)
@@ -64,5 +64,4 @@ void     draw(void *sys)
 		}
 		j++;
 	}
-    drawBuffer(env);
 }

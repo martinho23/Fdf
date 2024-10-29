@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 19:56:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/24 23:39:50 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/29 07:50:12 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void		ddaLine(t_sys *sys, t_vector2f a, t_vector2f b, int color)
     t_vector2f linePoint;
     int         step;
 
-    a = clampVector2f(a, MAKE_VECTOR2F(0, 0), MAKE_VECTOR2F((float)sys->screenSurface->size.x, (float)sys->screenSurface->size.y));
-    b = clampVector2f(b, MAKE_VECTOR2F(0, 0), MAKE_VECTOR2F((float)sys->screenSurface->size.x, (float)sys->screenSurface->size.y));
+    a = clampVector2f(a, MAKE_VECTOR2F(0, 0), MAKE_VECTOR2F((float)sys->screenSurface->width, (float)sys->screenSurface->height));
+    b = clampVector2f(b, MAKE_VECTOR2F(0, 0), MAKE_VECTOR2F((float)sys->screenSurface->width, (float)sys->screenSurface->height));
     
     delta.x = fabs(b.x - a.x);
     delta.y = fabs(b.y - a.y);
@@ -50,13 +50,15 @@ void		ddaLine(t_sys *sys, t_vector2f a, t_vector2f b, int color)
 
 void        brazehanLine(t_sys *env, t_vector2i a, t_vector2i b, int color)
 {
+    mlx_image_t *screen;
     t_vector2i  sign;
     t_vector2i  delta;
     t_vector2i  point;
     int         error;
 
-    a = clampVector2i(a, MAKE_VECTOR2I(0, 0), env->screenSurface->size);
-    b = clampVector2i(b, MAKE_VECTOR2I(0, 0), env->screenSurface->size);
+    screen = env->screenSurface;
+    a = clampVector2i(a, MAKE_VECTOR2I(0, 0), MAKE_VECTOR2I(screen->width, screen->height));
+    b = clampVector2i(b, MAKE_VECTOR2I(0, 0), MAKE_VECTOR2I(screen->width, screen->height));
 
     delta = MAKE_VECTOR2I(abs(b.x - a.x), abs(b.y - a.y));
     sign = MAKE_VECTOR2I((a.x < b.x ? 1 : -1), (a.y < b.y ? 1 : -1));

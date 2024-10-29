@@ -6,7 +6,7 @@
 #    By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/04 17:30:45 by jfarinha          #+#    #+#              #
-#    Updated: 2024/10/28 22:00:17 by jfarinha         ###   ########.fr        #
+#    Updated: 2024/10/29 19:56:26 by jfarinha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ BINS:=$(FILES:=.o)
 BINS:=$(addprefix srcs/, $(BINS))
 INCD:=-I ./include -I /usr/local/include/ -I /usr/include/X11 -I libft -I MLX42/include
 LIBD:=-L /usr/local/lib/ -L ./libft -L /usr/lib -L ./MLX42/build
-LIBS:=-lmlx -lXext -lX11 -lft -lm
 FLAG:=-Wall -Wextra -Werror -g
 LIBFT:= ./libft/libft.a
 LIBX:= ./MLX42/build/libmlx42.a
+LIBS:=$(LIBFT) $(LIBX) -ldl -lglfw -pthread -lm 
 
 .PHONY:all clean fclean re fullre libclean linux run
 
@@ -36,7 +36,7 @@ $(LIBFT):
 	make -C ./libft
 
 $(LIBX):
-	cmake -S MLX42 -B build
+	cmake -DDEBUG=1 -DBUILD_TESTS=ON -S MLX42 -B build
 	cmake --build MLX42/build --parallel --config Debug
 
 clean:
@@ -46,8 +46,8 @@ fclean: clean
 	rm -f $(NAME)
 
 libclean:
-	rm -f $(LIBFT)
-	rm -f $(LIBX)
+	make -C ./libft fclean
+	make -C ./MLX42/build clean
 
 re: fclean all
 

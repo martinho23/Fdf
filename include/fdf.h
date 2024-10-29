@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/28 23:10:23 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:28:06 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define GRIDSCALE 5
 # define PI 3.14159265359
 # define DEGREETORAD(angle) (angle * PI) / 180;
-# define SWAPSCREENSURFACE(screenSurface) screenSurface = screenSurface->next;
 
 /*
 ** Make Vector Defines
@@ -115,6 +114,20 @@ typedef struct			s_vector2i
         };
     };
 }						t_vector2i, *ptr_vector2i;
+
+typedef struct			s_vector2ui
+{
+    union
+    {
+        unsigned int m[2];
+       
+        struct 
+        {
+            unsigned  int	x;
+            unsigned  int	y;
+        };
+    };
+}                       t_vector2ui, *ptr_vector2ui;
 
 typedef struct			s_vector3i
 {
@@ -213,7 +226,7 @@ typedef struct		s_sys
 	float	    	f;
 	float	    	q;
     float           angle;
-    mlx_image_t     *screenSurface;
+    mlx_image_t     screenSurface;
 }			    	t_sys;
 
 /*

@@ -6,13 +6,15 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/28 22:41:34 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:28:24 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <libft.h>
 #include <stdio.h>
+
+# define BPP sizeof(int32_t)
 
 int printhi(void)
 {
@@ -36,9 +38,12 @@ int main(int ac, char **av) {
   env.scale.y = 1;
   env.scale.z = 1;
   printf("print done!\n");
-  env.screenSurface = initScreenSurface(&env, WINW, WINH);
+  initScreenSurface(&env, WINW, WINH);
+  ft_memset(env.screenSurface.pixels, 255, env.screenSurface.height * env.screenSurface.width * BPP);
+ // drawBuffer(&env);
   mlx_key_hook(env.mlx, keyhook, &env);
-  mlx_loop_hook(env.mlx, draw, &env);
+   //mlx_loop_hook(env.mlx, draw, &env);
+
   mlx_loop(env.mlx);
   return (0);
 }
