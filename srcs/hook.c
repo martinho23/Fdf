@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:33:57 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/28 22:13:29 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/31 01:43:38 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 #include <fdf.h>
 #include <stdlib.h>
 
-void	keyhook(mlx_key_data_t key, void *p)
+void	keyhook(void *p)
 {
 	t_sys *tmp;
 	tmp = (t_sys *)p;
-	if (key.key == MLX_KEY_ESCAPE)
+	if (mlx_is_key_down(tmp->mlx, MLX_KEY_ESCAPE))
 		exit(0);
-	if (key.key == XK_UP)
-		tmp->translate.y -= 10;
-	if (key.key == XK_DOWN)
-		tmp->translate.y += 10;
-	if (key.key == XK_LEFT)
-		tmp->translate.x -= 10;
-	if (key.key == XK_RIGHT)
-		tmp->translate.x += 10;
-	if (key.key == XK_A)
-		tmp->translate.z -= 10;
-	if (key.key == XK_E)
-		tmp->translate.z += 10;
+	if (mlx_is_key_down(tmp->mlx, MLX_KEY_UP))
+		tmp->translate.y += 50 * tmp->mlx->delta_time;
+	if (mlx_is_key_down(tmp->mlx, MLX_KEY_DOWN))
+		tmp->translate.y -= 50 * tmp->mlx->delta_time;
+	if (mlx_is_key_down(tmp->mlx, MLX_KEY_LEFT))
+		tmp->translate.x -= 50 * tmp->mlx->delta_time;
+	if (mlx_is_key_down(tmp->mlx, MLX_KEY_RIGHT))
+		tmp->translate.x += 50 * tmp->mlx->delta_time;
+	if (mlx_is_key_down(tmp->mlx, MLX_KEY_Q))
+		tmp->translate.z -= 50 * tmp->mlx->delta_time;
+	if (mlx_is_key_down(tmp->mlx, MLX_KEY_E))
+		tmp->translate.z += 50 * tmp->mlx->delta_time;
 }
 
 int		mousehook(int key, int x, int y, void *p)

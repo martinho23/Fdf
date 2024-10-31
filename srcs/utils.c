@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:09:29 by jfarinha          #+#    #+#             */
-/*   Updated: 2019/07/15 18:39:48 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:41:09 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ int		on_screen(t_vector4f pt)
 	return (1);
 }
 
-int		mkcolor(t_uchar r, t_uchar g, t_uchar b)
+int		mkcolor(t_uchar a, t_uchar b, t_uchar g, t_uchar r)
 {
 	int		color;
 
-	color = r;
-	color = (color << 8) + g;
+	color = a;
 	color = (color << 8) + b;
+	color = (color << 8) + g;
+	color = (color << 8) + r;
 	return (color);
 }
 

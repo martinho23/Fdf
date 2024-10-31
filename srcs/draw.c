@@ -6,13 +6,14 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/29 08:05:04 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/31 01:35:15 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf_matrix.h>
 #include <fdf.h>
 #include <libft.h>
+#include <stdio.h>
 
 t_matrix4f	loadProjection(void)
 {
@@ -39,11 +40,11 @@ void     draw(void *sys)
     t_matrix4f          rotx = MATRIX_ROT_X(env->angle);
     t_matrix4f          tmp = MATRIX_ZERO;
 
-    env->angle = DEGREETORAD(155.f);
+    env->angle += DEGREETORAD(30 * env->mlx->delta_time);
 	initTranslate(env, &translate);
     matrix4Mul(&rotx, &translate, &tmp);
 	matrix4Mul(&tmp, &env->projection, &draw);
-//	clearScreenSurface(env, 0x18181818);
+	clearScreenSurface(env, 0x18181818);
 
     j = 0;
     while (j < env->size_x - 1)
@@ -56,10 +57,10 @@ void     draw(void *sys)
             c = vec4MulHomogenous(draw, &env->map[i + 1][j]);
             d = vec4MulHomogenous(draw, &env->map[i + 1][j + 1]);
 
-            brazehanLine(env, MAKE_VECTOR2I(a.x, a.y),  MAKE_VECTOR2I(b.x, b.y), mkcolor(0, 255, 0));
-			brazehanLine(env, MAKE_VECTOR2I(b.x, b.y),  MAKE_VECTOR2I(d.x, d.y), mkcolor(0, 255, 0));
-			brazehanLine(env, MAKE_VECTOR2I(c.x, c.y),  MAKE_VECTOR2I(d.x, d.y), mkcolor(0, 255, 0));
-    		brazehanLine(env, MAKE_VECTOR2I(a.x, a.y),  MAKE_VECTOR2I(c.x, c.y), mkcolor(0, 255, 0));
+            brazehanLine(env, MAKE_VECTOR2I(a.x, a.y),  MAKE_VECTOR2I(b.x, b.y), mkcolor(0, 255, 0, 255));
+			brazehanLine(env, MAKE_VECTOR2I(b.x, b.y),  MAKE_VECTOR2I(d.x, d.y), mkcolor(0, 255, 0, 255));
+			brazehanLine(env, MAKE_VECTOR2I(c.x, c.y),  MAKE_VECTOR2I(d.x, d.y), mkcolor(0, 255, 0, 255));
+    		brazehanLine(env, MAKE_VECTOR2I(a.x, a.y),  MAKE_VECTOR2I(c.x, c.y), mkcolor(0, 255, 0, 255));
             i++;
 		}
 		j++;

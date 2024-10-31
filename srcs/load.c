@@ -6,7 +6,7 @@
 /*   By: jfarinha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:52:09 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/27 18:49:37 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:17:35 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void			normalise(t_sys *env)
 		j = 0;
 		while (j < env->size_x)
 		{
-			env->map[i][j].x -= 0.5f * env->size_x;
-			env->map[i][j].y -= 0.5f * env->size_y;
-		//	env->map[i][j].x /= env->size_x;
+			env->map[i][j].x -= 0.5f * env->size_x * GRIDSCALE;;
+			env->map[i][j].y -= 0.5f * env->size_y * GRIDSCALE;
+		//  env->map[i][j].x /= env->size_x;
 		//	env->map[i][j].y /= env->size_y;
 		//	env->map[i][j].z /= env->size_z;
 			j++;

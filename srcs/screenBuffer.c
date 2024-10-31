@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:05:14 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/29 23:06:02 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:43:30 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void clearScreenSurface(t_sys *env, int color)
 
         iterator.y ++;
     }
-    printf("Iterator Y: %u Iterator X: %u\n", iterator.y, iterator.x);
 }
 
 void putPixelToScreenSurface(mlx_image_t *screen, t_vector2i point, int color)

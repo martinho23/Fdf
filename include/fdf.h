@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/29 22:47:06 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/10/31 00:20:40 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 # define FOV 90.0f
 # define ZFAR 1000.0f
-# define WINW 800
-# define WINH 600
+# define WINW 1400
+# define WINH 720
 # define WINNAME "Fdf"
 # define STDW 500.0f
 # define STDH 500.0f
@@ -230,6 +230,20 @@ typedef struct		s_sys
 }			    	t_sys;
 
 /*
+**Brazehan internal data structure
+*/
+typedef struct      s_BrazehanData
+{
+    mlx_image_t     *screen;
+    t_vector2i      delta;
+    t_vector2i      sign;
+    t_vector2i      start;
+    t_vector2i      end;
+    int             error;
+    int             color;
+}                   t_brazehanData;
+
+/*
 ** Draw.c
 */
 void         		draw(void *env);
@@ -240,11 +254,11 @@ t_matrix4f			loadProjection(void);
 ** Utils.c
 */
 int					on_screen(t_vector4f pt);
-int					mkcolor(t_uchar r, t_uchar g, t_uchar b);
+int					mkcolor(t_uchar a, t_uchar b, t_uchar g, t_uchar r);
 /*
 ** Hook.c
 */
-void				keyhook(mlx_key_data_t key, void *p);
+void				keyhook(void *p);
 /*
 **Load.c
 */
