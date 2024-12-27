@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/31 00:20:40 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/12/27 20:05:03 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ void                freeScreenSurface(t_sys *env);
 void                clearScreenSurface(t_sys *env, int color);
 void                putPixelToScreenSurface(mlx_image_t *screen, t_vector2i point, int color);
 mlx_image_t         *initScreenSurface(t_sys *env, t_size width, t_size height);
-void                resizeSceenSurface(int32_t width, int32_t height, void *sys);
+void                resizeScreenSurface(int32_t width, int32_t height, void *sys);
 /*
 **Line.c
 */

@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:33:57 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/31 01:43:38 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/12/27 20:07:19 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	keyhook(void *p)
 	if (mlx_is_key_down(tmp->mlx, MLX_KEY_E))
 		tmp->translate.z += 50 * tmp->mlx->delta_time;
 }
+
 
 int		mousehook(int key, int x, int y, void *p)
 {

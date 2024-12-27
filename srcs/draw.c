@@ -6,14 +6,13 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/31 01:35:15 by jfarinha         ###   ########.fr       */
+/*   Updated: 2024/12/27 19:28:32 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf_matrix.h>
 #include <fdf.h>
 #include <libft.h>
-#include <stdio.h>
 
 t_matrix4f	loadProjection(void)
 {
