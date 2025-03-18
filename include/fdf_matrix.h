@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:40:38 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/27 22:19:07 by jfarinha         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:40:29 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
                                 {-sin(angle),   0,  cos(angle), 0},\
                                 {0,             0,  0,          1}}}}
 
-#define MATRIX_ROT_Z(angle)  {{{{cos(angle),    sin(angle), 0, 0},\
-                                {-sin(angle),   cos(angle), 0, 0},\
+#define MATRIX_ROT_Z(angle)  {{{{cos(angle),    -sin(angle), 0, 0},\
+                                {sin(angle),    cos(angle), 0, 0},\
                                 {0,             0,          1, 0},\
                                 {0,             0,          0, 1}}}}
 

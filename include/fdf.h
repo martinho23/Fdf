@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:13:27 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/12/27 20:05:03 by jfarinha         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:20:36 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ typedef struct		s_sys
 	float	    	a;
 	float	    	f;
 	float	    	q;
-    float           angle;
+    t_vector3f      angle;
     mlx_image_t     *screenSurface;
 }			    	t_sys;
 

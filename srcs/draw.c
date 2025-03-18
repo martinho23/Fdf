@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 18:09:07 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/12/27 19:28:32 by jfarinha         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:48:41 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,16 @@ void     draw(void *sys)
     t_vector4f          d;
     t_matrix4f          draw = MATRIX_ZERO;
     t_matrix4f          translate = MATRIX_ZERO;
-    t_matrix4f          rotx = MATRIX_ROT_X(env->angle);
+    t_matrix4f          rotx = MATRIX_ROT_X(env->angle.x);
+    t_matrix4f          roty = MATRIX_ROT_Y(env->angle.y);
+    t_matrix4f          rotz = MATRIX_ROT_Z(env->angle.z);
     t_matrix4f          tmp = MATRIX_ZERO;
 
-    env->angle += DEGREETORAD(30 * env->mlx->delta_time);
 	initTranslate(env, &translate);
-    matrix4Mul(&rotx, &translate, &tmp);
-	matrix4Mul(&tmp, &env->projection, &draw);
+    matrix4Mul(&rotx, &roty, &tmp);
+	matrix4Mul(&tmp, &rotz, &draw);
+    matrix4Mul(&draw, &translate, &tmp);
+    matrix4Mul(&tmp, &env->projection, &draw); 
 	clearScreenSurface(env, 0x18181818);
 
     j = 0;

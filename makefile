@@ -36,7 +36,7 @@ $(LIBFT):
 	make -C ./libft
 
 $(LIBX):
-	cmake -DDEBUG=1 -DBUILD_TESTS=ON -S MLX42 -B build
+	cmake -DDEBUG=1 -DBUILD_TESTS=ON -S MLX42 -B MLX42/build
 	cmake --build MLX42/build --parallel --config Debug
 
 clean:

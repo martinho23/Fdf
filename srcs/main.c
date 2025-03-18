@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 17:24:39 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/10/30 16:15:47 by jfarinha         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:48:08 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int main(int ac, char **av) {
   env.scale.x = 1;
   env.scale.y = 1;
   env.scale.z = 1;
+  env.angle.x = DEGREETORAD(360);
+  env.angle.y = DEGREETORAD(0);
+  env.angle.z = DEGREETORAD(0);
   env.screenSurface = initScreenSurface(&env, WINW, WINH);
   drawBuffer(&env);
   mlx_loop_hook(env.mlx, keyhook, &env);

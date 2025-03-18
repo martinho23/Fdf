@@ -6,7 +6,7 @@
 /*   By: jfarinha <jfarinha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/04 19:33:57 by jfarinha          #+#    #+#             */
-/*   Updated: 2024/12/27 20:07:19 by jfarinha         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:49:36 by jfarinha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ void	keyhook(void *p)
 		tmp->translate.z -= 50 * tmp->mlx->delta_time;
 	if (mlx_is_key_down(tmp->mlx, MLX_KEY_E))
 		tmp->translate.z += 50 * tmp->mlx->delta_time;
+    if (mlx_is_key_down(tmp->mlx, MLX_KEY_W))
+        tmp->angle.x -= DEGREETORAD(45 * tmp->mlx->delta_time);
+    if (mlx_is_key_down(tmp->mlx, MLX_KEY_S))
+        tmp->angle.x += DEGREETORAD(44 * tmp->mlx->delta_time);
+    if (mlx_is_key_down(tmp->mlx, MLX_KEY_A))
+        tmp->angle.y -= DEGREETORAD(45 * tmp->mlx->delta_time);
+    if (mlx_is_key_down(tmp->mlx, MLX_KEY_D))
+        tmp->angle.y += DEGREETORAD(45 * tmp->mlx->delta_time);
 }
 
 
